@@ -45,7 +45,7 @@ export default function Tracks() {
 
   return (
     <div>
-      <h1 className="text-4xl text-muted-foreground   lg:text-5xl lg:pl-11 md:pl-5 pl-5">
+      <h1 className="text-4xl text-muted-foreground font-bold   lg:text-5xl lg:pl-11 md:pl-5 pl-5">
         Lering Tracking
       </h1>
       <section className="px-8 py-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6 mx-auto ">
