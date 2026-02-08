@@ -19,7 +19,7 @@ export default function TopStudents() {
   const [activeBatch, setActiveBatch] = useState(batches[0]);
 
   return (
-    <section className="p-6  text-white rounded-xl">
+    <section className="p-6   rounded-xl">
       <h1 className="text-4xl text-muted-foreground font-bold   lg:text-5xl lg:pl-2 lg:mb-10 md:pl-5 md:mb-5 mb-6">
         TopStudents
       </h1>
@@ -59,10 +59,10 @@ export default function TopStudents() {
                   alt={student.name}
                   className="w-8 h-8 rounded-full"
                 />
-                {/* {student.name} */}
+                {student.name}
               </TableCell>
 
-              <TableCell className="text-right text-blue-400">
+              <TableCell className="text-right ">
                 {student.xp}
               </TableCell>
             </TableRow>
