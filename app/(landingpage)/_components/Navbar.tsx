@@ -13,7 +13,9 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center ">
           <Image src={LoGO} alt="Logo" width={60} height={20} />
-          <span className="font-bold text-lg ">Habib Academy.</span>
+          <span className="hidden md:block font-bold text-lg">
+            Habib Academy.
+          </span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -31,7 +33,7 @@ export default function Navbar() {
           <Link href="/get-started" className={buttonVariants()}>
             Get Started
           </Link>
-          <ThemToggle/>
+          <ThemToggle />
         </nav>
 
         {/* Mobile Hamburger (Optional) */}
