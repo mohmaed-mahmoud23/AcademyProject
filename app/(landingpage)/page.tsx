@@ -1,4 +1,5 @@
 import Hero from "./_components/Hero";
+import TopStudents from "./_components/TopStudents";
 import Tracks from "./_components/Tracks";
 
 export default function Homepage(){
@@ -8,6 +9,7 @@ export default function Homepage(){
             
             <Hero/>
             <Tracks/>
+            <TopStudents/>
         </div>
     )
 

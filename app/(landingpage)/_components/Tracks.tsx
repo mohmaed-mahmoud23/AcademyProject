@@ -50,6 +50,7 @@ export default function Tracks() {
       </h1>
       <section className="px-8 py-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6 mx-auto ">
         {tracks.map((track, index) => (
+          
           <Card key={index} className="hover:shadow-lg transition-shadow">
             <CardHeader className="flex items-center gap-3 mb-4">
               <div className="h-8 w-11  rounded-md bg-gray-700 flex items-center justify-center text-white font-bold">

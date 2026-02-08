@@ -13,7 +13,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center ">
           <Image src={LoGO} alt="Logo" width={60} height={20} />
-          <span className="font-bold text-lg">Habib Academy.</span>
+          <span className="font-bold text-lg ">Habib Academy.</span>
         </Link>
 
         {/* Desktop Navigation */}
