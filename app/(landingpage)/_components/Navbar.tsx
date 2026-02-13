@@ -22,7 +22,7 @@ export default function Navbar() {
         {/* Navigation */}
         <nav className="flex items-center gap-3 sm:gap-5 md:gap-8 lg:gap-2">
           <Link
-            href="/login"
+            href="/Login"
             className={buttonVariants({
               variant: "secondary",
             })}
