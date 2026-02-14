@@ -17,11 +17,12 @@ import { useLoginMutation } from "@/app/redux/slices/ApiSlice";
 import { LoginResponse } from "@/app/interfaces";
 import { LoginFormType, loginSchema } from "@/lib/zodSecma";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
   const [login, { isLoading }] = useLoginMutation();
   const [errorMessage, setErrorMessage] = useState("");
-  
+  const router =useRouter()
   // Init form with Zod resolver
   const form = useForm<LoginFormType>({
     resolver: zodResolver(loginSchema),
@@ -40,7 +41,14 @@ const onSubmit = async (data: LoginFormType) => {
     console.log("Full login response:", result);
 
     const token = result.data.accessToken;
+
     localStorage.setItem("token", token);
+
+
+
+
+
+
 
     // عرض رسالة نجاح باستخدام toast
     toast.success(result.message);
@@ -52,6 +60,9 @@ const onSubmit = async (data: LoginFormType) => {
 
     console.log("Token stored:", token);
     console.log("Roles:", result.data.roles);
+    if(result.data.roles){
+    router.push("/Admin")
+    }
   } catch (err: any) {
     console.error("Login error:", err);
     const message = err.data?.message || err.message || "Login failed";
