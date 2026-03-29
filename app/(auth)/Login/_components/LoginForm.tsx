@@ -18,98 +18,111 @@ import { LoginResponse } from "@/app/interfaces";
 import { LoginFormType, loginSchema } from "@/lib/zodSecma";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import cookieService from "@/lib/cookieService";
+import { useTranslations } from "next-intl";
 
 export default function LoginForm() {
   const [login, { isLoading }] = useLoginMutation();
   const [errorMessage, setErrorMessage] = useState("");
-  const router =useRouter()
-  // Init form with Zod resolver
+  const router = useRouter();
+  const t = useTranslations("Login");
+
   const form = useForm<LoginFormType>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      username: "",
+      email: "",
       password: "",
       rememberMe: true,
     },
   });
 
-  // On submit
-const onSubmit = async (data: LoginFormType) => {
-  setErrorMessage(""); // امسح أي رسالة خطأ قديمة
-  try {
-    const result: LoginResponse = await login(data).unwrap();
-    console.log("Full login response:", result);
+  const onSubmit = async (data: LoginFormType) => {
+    setErrorMessage("");
 
-    const token = result.data.accessToken;
+    try {
+      const result: LoginResponse = await login(data).unwrap();
 
-    localStorage.setItem("token", token);
+      // 🔥 أهم جزء
+      const { accessToken, refreshToken, roles } = result.data;
 
+      // ✅ خزّن accessToken
+      cookieService.set("token", accessToken, {
+        path: "/",
+        secure: true,
+        sameSite: "Strict",
+      });
 
+      // ✅ خزّن refreshToken (ده كان ناقصك)
+      cookieService.set("refreshToken", refreshToken, {
+        path: "/",
+        secure: true,
+        sameSite: "Strict",
+      });
 
+      toast.success(result.message);
 
+      form.reset({
+        email: "",
+        password: "",
+        rememberMe: true,
+      });
 
-
-
-    // عرض رسالة نجاح باستخدام toast
-    toast.success(result.message);
-    form.reset({
-      username: "",
-      password: "",
-      rememberMe: true, // لو عندك rememberMe
-    });
-
-    console.log("Token stored:", token);
-    console.log("Roles:", result.data.roles);
-    if(result.data.roles){
-    router.push("/Admin")
+      // ✅ redirect حسب role
+      if (roles?.includes("Admin")) {
+        router.push("/Admin");
+      } else {
+        router.push("/dashboard"); // غيرها حسب عندك
+      }
+    } catch (err: any) {
+      const message = err?.data?.message || err.message || "Login failed";
+      setErrorMessage(message);
+      toast.error(message);
     }
-  } catch (err: any) {
-    console.error("Login error:", err);
-    const message = err.data?.message || err.message || "Login failed";
-    setErrorMessage(message);
-
-    // عرض toast للخطأ لو حبيت
-    toast.error(message);
-  }
-};
+  };
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        {/* Username Field */}
+        {/* Email */}
         <FormField
           control={form.control}
-          name="username"
+          name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>{t("username")}</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your email" {...field} />
+                <Input placeholder={t("emailPlaceholder")} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
 
-        {/* Password Field */}
+        {/* Password */}
         <FormField
           control={form.control}
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>{t("password")}</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="Enter your password" {...field} />
+                <Input
+                  type="password"
+                  placeholder={t("passwordPlaceholder")}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
 
-        {/* Submit Button */}
-        {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-        <Button type="submit" disabled={isLoading}>
-          {isLoading ? "Logging in..." : "Login"}
+        {/* Error */}
+        {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
+
+        {/* Submit */}
+        <Button type="submit" disabled={isLoading} className="w-full">
+          {isLoading ? t("loggingIn") : t("loginButton")}
         </Button>
       </form>
     </Form>

@@ -1,28 +1,17 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 import {
   IconCamera,
-  IconChartBar,
   IconDashboard,
-  IconDatabase,
   IconFileAi,
   IconFileDescription,
-  IconFileWord,
-  IconFolder,
-  IconHelp,
   IconInnerShadowTop,
   IconListDetails,
-  IconReport,
-  IconSearch,
-  IconSettings,
-  IconUsers,
-} from "@tabler/icons-react"
+} from "@tabler/icons-react";
 
-import { NavDocuments } from "@/components/nav-documents"
-import { NavMain } from "@/components/nav-main"
-import { NavSecondary } from "@/components/nav-secondary"
-import { NavUser } from "@/components/nav-user"
+import { NavMain } from "@/components/nav-main";
+import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,
   SidebarContent,
@@ -31,99 +20,34 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
-
-const data = {
-
-navMain: [
-  {
-    title: "Dashboard",
-    url: "/Admin",
-    icon: IconDashboard,
-  },
-  {
-    title: "Batches",
-    url: "/Admin/Batches",
-    icon: IconListDetails,
-  },
-  {
-    title: "Analytics",
-    url: "/admin/analytics",
-    icon: IconChartBar,
-  },
-]
-,
-  navClouds: [
-    {
-      title: "Capture",
-      icon: IconCamera,
-      isActive: true,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Proposal",
-      icon: IconFileDescription,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Prompts",
-      icon: IconFileAi,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-  ],
-  navSecondary: [
-    {
-      title: "Settings",
-      url: "#",
-      icon: IconSettings,
-    },
-    {
-      title: "Get Help",
-      url: "#",
-      icon: IconHelp,
-    },
-    {
-      title: "Search",
-      url: "#",
-      icon: IconSearch,
-    },
-  ],
-
-}
+} from "@/components/ui/sidebar";
+import { useTranslations } from "next-intl";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const t = useTranslations("Admin");
+
+  const data = {
+    navMain: [
+      {
+        title: t("dashboard"),
+        url: "/Admin",
+        icon: IconDashboard,
+      },
+      {
+        title: t("batches"),
+        url: "/Admin/Batches",
+        icon: IconListDetails,
+      },
+      {
+        title: t("articles"),
+        url: "/Admin/articles",
+        icon: IconListDetails,
+      },
+    ],
+  };
+
   return (
-    <Sidebar collapsible="offcanvas" {...props}>
+    <Sidebar collapsible="offcanvas" {...props} side="left">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -133,7 +57,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             >
               <a href="#">
                 <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">Acme Inc.</span>
+                <span className="text-base font-semibold">{t("brand")}</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -141,11 +65,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser  />
+        <NavUser />
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }

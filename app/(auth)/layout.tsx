@@ -2,38 +2,45 @@ import { buttonVariants } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { ReactNode } from "react";
-import Logo from "@/public/Image.png";
+import Logo from "@/public/images/Habib academy svg Logo.svg";
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 
-export default function AuthLayout({ children }: { children: ReactNode }) {
+export default async function AuthLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  const t = await getTranslations("Auth");
+
   return (
-    <div className="flex relative flex-col items-center min-h-screen  justify-center gap-8">
-      <div className=" mx-auto  w-full max-w-md p-8 item ">
+    <div className="flex relative flex-col items-center min-h-screen justify-center gap-8">
+      <div className="mx-auto w-full max-w-md p-8">
         <Link
           className={buttonVariants({
             variant: "outline",
-            className: "absolute top-4 left-4",
+            className: "absolute top-4 start-4",
           })}
           href={"/"}
         >
           <ArrowLeft />
-          Back
+          {t("back")}
         </Link>
 
-        <div className=" flex w-full max-w-sm justify-center items-center  ">
+        <div className="flex w-full max-w-sm justify-center items-center">
           <Link
             className="text-center items-center self-center text-muted-foreground font-medium"
             href={"/"}
           >
-            Habib Academy.
+            {t("brand")}
           </Link>
           <div></div>
-          <Image src={Logo} alt="sds" width={50} height={40} />
+          <Image src={Logo} alt="logo" width={100} height={100}  className="rounded-full"/>
         </div>
         {children}
 
-        <div className="text-balance  text-center text-sm hover:text-primary cursor-pointer hover:underline ">
-          containue to policy, termes of services
+        <div className="text-balance text-center text-sm hover:text-primary cursor-pointer hover:underline mt-4">
+          {t("policy")}
         </div>
       </div>
     </div>

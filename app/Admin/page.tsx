@@ -1,16 +1,20 @@
-import { ChartAreaInteractive } from "../../components/chart-area-interactive";
 import { SectionCards } from "../../components/section-cards";
-import { DataTable } from "../../components/data-table";
-import data from "./data.json";
+// import { TopStudents } from "@/components/Topstudents";
+// import { TopTracks } from "@/components/Toptracks";
+import { RecentUsers } from "@/components/Recent-users";
+import { TopStudentsLeaderboard } from "@/components/Students-chart";
 
 export default function AdmindashbordIndex() {
   return (
     <>
       <SectionCards />
-      <div className="px-4 lg:px-6">
-        <ChartAreaInteractive />
+
+      <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
+        {/* <TopStudents /> */}
+      <TopStudentsLeaderboard />
+        {/* <TopTracks /> */}
       </div>
-      <DataTable data={data} />
-    </>
+      <RecentUsers />
+    </> 
   );
 }
