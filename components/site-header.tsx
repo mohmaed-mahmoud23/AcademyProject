@@ -4,6 +4,7 @@ import { SidebarTrigger } from "@/components/ui/sidebar";
 import NotificationBell from "./notifications/NotificationBell";
 import { getTranslations } from "next-intl/server";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { ThemToggle } from "@/components/ui/themToggle";
 
 export async function SiteHeader() {
   const t = await getTranslations("Admin");
@@ -19,6 +20,8 @@ export async function SiteHeader() {
         <h1 className="text-base font-medium">{t("documents")}</h1>
         <div className="ms-auto flex items-center gap-4">
           <LanguageSwitcher />
+                    <ThemToggle />
+          
           <Button variant="ghost" asChild size="sm" className="hidden sm:flex">
             <NotificationBell />
           </Button>

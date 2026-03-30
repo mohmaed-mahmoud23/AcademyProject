@@ -1,82 +1,82 @@
-  // src/types/auth.ts
+// src/types/auth.ts
 
-  export interface LoginData {
-    accessToken: string;
-    refreshToken: string;
-    roles: string[];
-  }
+export interface LoginData {
+  accessToken: string;
+  refreshToken: string;
+  roles: string[];
+}
 
-  export interface LoginResponse {
-    data: LoginData;
-    message: string;
-    isSuccess: boolean;
-    statusCode: number;
-    errors: string[];
-    timestamp: string;
-  }
-
-
-
-  //types admin create student 
-  // Interface for the inner "data" object
-  export interface StudentData {
-    studentId: string;
-    email: string;
-    activationCode: string;
-  }
-
-  // Interface for the full API response
-  export interface CreateStudentResponse {
-    data: StudentData;
-    message: string;
-    isSuccess: boolean;
-    statusCode: number;
-    errors: any[]; // لو عندك نوع محدد للأيرور ممكن تحدده بدل any
-    timestamp: string; // ISO string
-  }
+export interface LoginResponse {
+  data: LoginData;
+  message: string;
+  isSuccess: boolean;
+  statusCode: number;
+  errors: string[];
+  timestamp: string;
+}
 
 
+
+//types admin create student 
+// Interface for the inner "data" object
+export interface StudentData {
+  studentId: string;
+  email: string;
+  activationCode: string;
+}
+
+// Interface for the full API response
+export interface CreateStudentResponse {
+  data: StudentData;
+  message: string;
+  isSuccess: boolean;
+  statusCode: number;
+  errors: any[]; // لو عندك نوع محدد للأيرور ممكن تحدده بدل any
+  timestamp: string; // ISO string
+}
 
 
 
 
 
-  ///         //        //         //       
 
 
-  export interface ActivateStudentData {
-    accessToken: string;
-    refreshToken: string;
-    role: string;
-  }
-
-  export interface ActivateStudentResponse {
-    data: ActivateStudentData;
-    message: string;
-    isSuccess: boolean;
-    statusCode: number;
-    errors: any[]; // ممكن تحدد النوع لو عارف شكل الـ errors
-    timestamp: string; // ISO string
-  }
+///         //        //         //       
 
 
+export interface ActivateStudentData {
+  accessToken: string;
+  refreshToken: string;
+  role: string;
+}
 
-  export interface CreateBatchResponse {
-    data: string;          // ده الـ batchId
-    message: string;
-    isSuccess: boolean;
-    statusCode: number;
-    errors: string[];
-    timestamp: string;
-  }
-  // types/auth.ts
-  export interface Student {
-    studentId: string;
-    email: string;
-    firstName: string;
-    lastName: string;
-    gender: string;
-  }
+export interface ActivateStudentResponse {
+  data: ActivateStudentData;
+  message: string;
+  isSuccess: boolean;
+  statusCode: number;
+  errors: any[]; // ممكن تحدد النوع لو عارف شكل الـ errors
+  timestamp: string; // ISO string
+}
+
+
+
+export interface CreateBatchResponse {
+  data: string;          // ده الـ batchId
+  message: string;
+  isSuccess: boolean;
+  statusCode: number;
+  errors: string[];
+  timestamp: string;
+}
+// types/auth.ts
+export interface Student {
+  studentId: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  gender: string;
+}
 
 
 export interface CreateArticleRequest {
@@ -94,60 +94,60 @@ export interface CreateArticleResponse {
   timestamp: string;
 }
 
-  export interface Track {
-    trackId: string;
-    name: string;
-  }
+export interface Track {
+  trackId: string;
+  name: string;
+}
 
-  export interface BatchData {
-    id: string;
-    name: string;
-    startDate: string;
-    students: Student[];
-    tracks: Track[];
-  }
+export interface BatchData {
+  id: string;
+  name: string;
+  startDate: string;
+  students: Student[];
+  tracks: Track[];
+}
 
-  export interface BatchResponse {
-    data: BatchData;
-    message: string;
-    isSuccess: boolean;
-    statusCode: number;
-    errors: string[];
-    timestamp: string;
-  }
-
-
-
-
-  export interface Batch {
-    id: string
-    name: string
-    startDate: string
-    studentCount: number
-    trackCount: number
-  }
-
-
-  export interface BatchesData {
-    items: Batch[]
-    page: number
-    pageSize: number
-    totalCount: number
-    totalPages: number
-    hasPrevious: boolean
-    hasNext: boolean
-  }
+export interface BatchResponse {
+  data: BatchData;
+  message: string;
+  isSuccess: boolean;
+  statusCode: number;
+  errors: string[];
+  timestamp: string;
+}
 
 
 
-  export interface ApiResponse<T> {
-    data: T
-    message: string
-    isSuccess: boolean
-    statusCode: number
-    errors: string[]
-    timestamp: string
-  }
+
+export interface Batch {
+  id: string
+  name: string
+  startDate: string
+  studentCount: number
+  trackCount: number
+}
+
+
+export interface BatchesData {
+  items: Batch[]
+  page: number
+  pageSize: number
+  totalCount: number
+  totalPages: number
+  hasPrevious: boolean
+  hasNext: boolean
+}
+
+
+
+export interface ApiResponse<T> {
+  data: T
+  message: string
+  isSuccess: boolean
+  statusCode: number
+  errors: string[]
+  timestamp: string
+}
 export interface Student {
   [key: string]: any;
 }
@@ -279,7 +279,7 @@ export interface Assignment {
   title: string;
   maxScore: number,
   dueDate: string,
-  isClosed:boolean
+  isClosed: boolean
 }
 
 // API Response Interface
@@ -359,7 +359,7 @@ export interface Lectureredetails {
   driveLink: string;
   fileUrl: string;
   trackId: string;
-  assignmentCount:number
+  assignmentCount: number
 }
 
 export interface GetLecturesdetailsResponse {
@@ -596,7 +596,7 @@ export interface TopStudent {
   studentName: string;
   email: string;
   averageScore: number;
-  batchName:string
+  batchName: string
 
 }
 
