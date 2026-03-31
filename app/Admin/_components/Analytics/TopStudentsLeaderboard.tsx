@@ -140,11 +140,11 @@ export function TopStudentsLeaderboard({ students = [] }: TopStudentsLeaderboard
                         </Badge>
                       </div>
 
-                      <div className="col-span-2 text-right">
+                      {/* <div className="col-span-2 text-right">
                         <button className="p-2.5 rounded-2xl bg-white/5 border border-white/10 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 translate-x-4 transition-all duration-500 hover:bg-blue-500 hover:text-white hover:border-transparent cursor-pointer">
                           <ChevronRight size={16} className={t("activity") === "نشاط" ? "rotate-180" : ""} />
                         </button>
-                      </div>
+                      </div> */}
                     </div>
                   </motion.div>
                 );
