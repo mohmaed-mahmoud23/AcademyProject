@@ -1,142 +1,142 @@
 "use client";
 
 import { useGetStudentProgressQuery } from "@/app/redux/slices/ApiSlice";
-import { useParams } from "next/navigation";
-import { Loader2, Trophy, Percent, TrendingUp } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
+import { motion, Variants } from "framer-motion";
+import {
+  Trophy,
+  Target,
+  AlertCircle,
+  ArrowLeft,
+  TrendingUp,
+  Mail,
+  Loader2,
+} from "lucide-react";
+import { useTranslations } from "next-intl";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 }
+  }
+};
+
+const itemVariants: Variants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: { type: "spring", stiffness: 100 }
+  }
+};
 
 export default function StudentProgressPage() {
+  const t = useTranslations("StudentProgressAdmin");
   const params = useParams();
+  const router = useRouter();
 
   const studentId = params.studentId as string;
   const trackId = params.trackId as string;
-console.log("trackId:", trackId);
-console.log("studentId:", studentId);
+  const batchId = params.batchId as string;
+
   const { data, isLoading, isError } = useGetStudentProgressQuery({
     studentId,
     trackId,
   });
 
-  console.log(data);
-console.log("API DATA", data);
-console.log("progress", data?.data?.completionPercentage);
   if (isLoading)
     return (
-      <div className="flex items-center justify-center h-[70vh]">
-        <Loader2 className="animate-spin w-10 h-10 text-blue-600" />
+      <div className="flex flex-col items-center justify-center min-h-[80vh] gap-6">
+        <Loader2 className="w-12 h-12 text-indigo-500 animate-spin" />
+        <p className="text-slate-400 font-bold uppercase tracking-widest text-xs animate-pulse">
+          {t("loading")}
+        </p>
       </div>
     );
 
-  if (isError || !data)
+  if (isError || !data || !data.data)
     return (
-      <div className="flex items-center justify-center h-[70vh] text-red-500 text-lg font-semibold">
-         no Yet 
+      <div className="flex flex-col items-center justify-center min-h-[80vh] p-8 text-center animate-in fade-in zoom-in duration-500">
+        <div className="w-24 h-24 bg-rose-500/10 text-rose-500 rounded-3xl flex items-center justify-center mb-6">
+          <AlertCircle className="w-12 h-12" />
+        </div>
+        <h2 className="text-3xl font-black text-slate-800 dark:text-white mb-2">{t("noData")}</h2>
+        <p className="text-slate-500 dark:text-slate-400 font-medium mb-8 max-w-sm mx-auto">
+          {t("notStarted")}
+        </p>
+        <Button onClick={() => router.back()} className="rounded-2xl px-12 h-14 font-black shadow-lg shadow-indigo-500/10 transition-transform active:scale-95">
+          {t("back")}
+        </Button>
       </div>
     );
 
-  const rank = data.data.rank;
-  const averageScore = data.data.averageScore;
+  const { rank, averageScore, studentName, studentEmail, completionPercentage } = data.data;
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6">
-      <Card className="w-full max-w-xl shadow-xl rounded-2xl">
-        <CardHeader>
-          <CardTitle className="text-xl font-bold">
-            Student Track Progress
-          </CardTitle>
-        </CardHeader>
-
-        <CardContent className="space-y-6">
-          
-          {/* Progress Circle */}
-          {/* <div className="flex items-center justify-center">
-            <div className="relative w-32 h-32">
-              <svg className="w-full h-full rotate-[-90deg]">
-                <circle
-                  cx="64"
-                  cy="64"
-                  r="54"
-                  stroke="#e5e7eb"
-                  strokeWidth="10"
-                  fill="transparent"
-                />
-                <circle
-                  cx="64"
-                  cy="64"
-                  r="54"
-                  stroke="#2563eb"
-                  strokeWidth="10"
-                  fill="transparent"
-                  strokeDasharray={339.292}
-                  strokeDashoffset={
-                    339.292 - (339.292 * progress) / 100
-                  }
-                  strokeLinecap="round"
-                  className="transition-all duration-700"
-                />
-              </svg>
-
-              {/* <div className="absolute inset-0 flex items-center justify-center text-2xl font-bold text-blue-600">
-                {progress}%
-              </div> */}
-            {/* </div>
-          </div> */} 
-
-          {/* Progress Bar */}
-          {/* <div>
-            <div className="flex justify-between text-sm mb-2">
-              <span>Track Completion</span>
-              <span>{progress}%</span>
+    <div className="min-h-screen bg-slate-50/20 dark:bg-transparent pb-28 pt-8 px-4 sm:px-6">
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="max-w-4xl mx-auto space-y-12"
+      >
+        {/* HEADER SECTION */}
+        <motion.div variants={itemVariants} className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-slate-200 dark:border-white/5 pb-10">
+          <div className="space-y-4">
+            <Badge className="bg-indigo-500 text-white border-0 px-4 py-1 rounded-full font-black uppercase tracking-widest text-[10px]">
+              {t("overallPerformance")}
+            </Badge>
+            <h1 className="text-5xl md:text-6xl font-black tracking-tight text-slate-900 dark:text-white leading-none">
+              {studentName}
+            </h1>
+            <div className="flex items-center gap-2 text-slate-500 font-bold text-lg">
+              <Mail className="w-5 h-5 text-indigo-500/50" />
+              <span>{studentEmail}</span>
             </div>
-
-            <Progress value={progress} />
-          </div> */}
-
-          {/* Stats */}
-          <div className="grid grid-cols-2 gap-4">
-
-            <Card className="p-4 flex items-center gap-3">
-              <Trophy className="text-yellow-500" />
-              <div>
-                <p className="text-sm text-gray-500">Rank</p>
-                <p className="font-bold text-lg">{rank}</p>
-              </div>
-            </Card>
-
-            <Card className="p-4 flex items-center gap-3">
-              <Percent className="text-green-500" />
-              <div>
-                <p className="text-sm text-gray-500">Average Score</p>
-                <p className="font-bold text-lg">{averageScore}</p>
-              </div>
-            </Card>
-
           </div>
+          <Button onClick={() => router.back()} variant="outline" className="rounded-2xl h-14 px-8 font-black border-2 gap-3 group transition-all hover:bg-slate-900 hover:text-white dark:hover:bg-white dark:hover:text-slate-900">
+            <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform rtl:rotate-180" />
+            <span>{t("back")}</span>
+          </Button>
+        </motion.div>
+        {/* BENTO STATS GRID */}
+        <div className="grid sm:grid-cols-2 gap-8">
 
-          {/* Status */}
-          {/* <div className="flex justify-center">
-            <span
-              className={`px-4 py-1 rounded-full text-sm font-medium
-              ${
-                progress === 100
-                  ? "bg-green-100 text-green-600"
-                  : progress >= 50
-                  ? "bg-blue-100 text-blue-600"
-                  : "bg-yellow-100 text-yellow-600"
-              }`}
-            >
-              {progress === 100
-                ? "Completed"
-                : progress >= 50
-                ? "In Progress"
-                : "Just Started"}
-            </span>
-          </div> */}
+          {/* Rank Card */}
+          <motion.div variants={itemVariants}>
+            <Card className="rounded-[2.5rem] border-2 border-slate-100 dark:border-white/5 bg-white dark:bg-slate-900 p-10 h-full flex items-center gap-8 shadow-sm transition-transform hover:translate-y-[-5px]">
+              <div className="w-20 h-20 bg-amber-500/10 text-amber-500 rounded-[1.8rem] flex items-center justify-center border border-amber-500/10 shadow-inner">
+                <Trophy className="w-10 h-10" />
+              </div>
+              <div className="space-y-1">
+                <p className="text-[11px] font-black text-slate-400 uppercase tracking-widest">{t("rank")}</p>
+                <p className="text-5xl font-black text-slate-900 dark:text-white leading-none">#{rank}</p>
+              </div>
+            </Card>
+          </motion.div>
 
-        </CardContent>
-      </Card>
+          {/* Score Card */}
+          <motion.div variants={itemVariants}>
+            <Card className="rounded-[2.5rem] border-2 border-slate-100 dark:border-white/5 bg-white dark:bg-slate-900 p-10 h-full flex items-center gap-8 shadow-sm transition-transform hover:translate-y-[-5px]">
+              <div className="w-20 h-20 bg-emerald-500/10 text-emerald-500 rounded-[1.8rem] flex items-center justify-center border border-emerald-500/10 shadow-inner">
+                <TrendingUp className="w-10 h-10" />
+              </div>
+              <div className="space-y-1">
+                <p className="text-[11px] font-black text-slate-400 uppercase tracking-widest">{t("averageScore")}</p>
+                <div className="flex items-baseline gap-2">
+                  <p className="text-5xl font-black text-emerald-500 leading-none">{averageScore}%</p>
+                  <span className="text-[10px] font-black text-slate-400 uppercase">{t("averageScore")}</span>
+                </div>
+              </div>
+            </Card>
+          </motion.div>
+
+        </div>
+      </motion.div>
     </div>
   );
 }

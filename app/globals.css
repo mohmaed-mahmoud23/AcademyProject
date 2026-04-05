@@ -222,6 +222,15 @@
   .glow-primary {
     box-shadow: var(--primary-glow);
   }
+
+  /* RTL UTILITIES */
+  :root[dir="rtl"] .rtl-rotate-180 {
+    transform: rotate(180deg);
+  }
+  
+  :root[dir="rtl"] .rtl-grid {
+    direction: rtl;
+  }
 }
 
 .waves {

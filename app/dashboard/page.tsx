@@ -11,7 +11,7 @@ export default function PagesIndex() {
 
     if (isLoading) {
         return (
-            <div className="flex justify-center items-center h-screen  ">
+            <div className="flex justify-center items-center h-screen ">
                 <div className="space-y-4 text-center">
                     <div className="h-12 w-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto" />
                     <p className="text-gray-500 font-medium animate-pulse">{t("loading")}</p>

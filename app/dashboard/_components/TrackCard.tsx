@@ -3,12 +3,11 @@
 import { motion } from "framer-motion";
 import { BookOpen, MapPin, ArrowRight, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 interface TrackCardProps {
     name: string;
     category: string;
-    progress: number;
-    lectureCount: number;
     color: "blue" | "purple" | "emerald" | "amber";
     delay?: number;
 }
@@ -51,11 +50,10 @@ const colorStyles = {
 export function TrackCard({
     name,
     category,
-    progress,
-    lectureCount,
     color,
     delay = 0,
 }: TrackCardProps) {
+    const t = useTranslations("TrackCard");
     const styles = colorStyles[color];
 
     return (
@@ -70,11 +68,9 @@ export function TrackCard({
                 "hover:shadow-xl dark:hover:shadow-primary/10"
             )}
         >
-            {/* Dynamic Background Pattern */}
-            <div className={cn("absolute -right-4 -top-4 h-24 w-24 rounded-full blur-3xl opacity-20", styles.fill)} />
+            <div className={cn("absolute -end-4 -top-4 h-24 w-24 rounded-full blur-3xl opacity-20", styles.fill)} />
 
             <div className="relative space-y-4">
-                {/* Badge & Rating */}
                 <div className="flex items-center justify-between">
                     <span className={cn("px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider", styles.bg, styles.text)}>
                         {category}
@@ -85,36 +81,17 @@ export function TrackCard({
                     </div>
                 </div>
 
-                {/* Title */}
                 <div>
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                    <h3 className="text-xl font-black text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-2">
                         {name}
                     </h3>
-                    <p className="text-xs text-gray-500 dark:text-slate-400 mt-1 flex items-center gap-1">
-                        <BookOpen size={12} /> {lectureCount} Lectures
-                    </p>
                 </div>
 
-                {/* Progress Bar */}
-                <div className="space-y-2">
-                    <div className="flex justify-between items-end">
-                        <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-tighter">Your Progress</span>
-                        <span className="text-sm font-black text-gray-900 dark:text-white">{progress}%</span>
-                    </div>
-                    <div className="h-2 w-full bg-gray-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                        <motion.div
-                            initial={{ width: 0 }}
-                            animate={{ width: `${progress}%` }}
-                            transition={{ duration: 1.2, ease: "easeOut", delay: delay + 0.3 }}
-                            className={cn("h-full rounded-full transition-all duration-300", styles.fill)}
-                        />
-                    </div>
-                </div>
 
-                {/* Footer Link */}
+
                 <button className="w-full mt-4 flex items-center justify-center gap-2 py-3 rounded-2xl bg-gray-50 dark:bg-slate-800 group-hover:bg-blue-600 dark:group-hover:bg-blue-600 group-hover:text-white transition-all duration-300 text-sm font-bold text-gray-700 dark:text-slate-300">
-                    Continue Learning
-                    <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                    {t("continue")}
+                    <ArrowRight size={16} className="group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform rtl:rotate-180" />
                 </button>
             </div>
         </motion.div>

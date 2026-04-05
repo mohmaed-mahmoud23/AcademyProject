@@ -43,6 +43,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         url: "/Admin/articles",
         icon: IconListDetails,
       },
+      {
+        title: t("createAdmin"),
+        url: "/Admin/createAdmin",
+        icon: IconListDetails,
+      },
     ],
   };
 

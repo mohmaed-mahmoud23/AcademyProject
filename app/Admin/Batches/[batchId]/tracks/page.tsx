@@ -1,13 +1,12 @@
-export default function tracks( {
+export default async function tracks({
   params,
 }: {
-  params: { batchId: string };
-
-}) 
-{
-    return (
-        <div>
-            {params.batchId}
-        </div>
-    )
+  params: Promise<{ batchId: string }>;
+}) {
+  const { batchId } = await params;
+  return (
+    <div>
+      {batchId}
+    </div>
+  );
 }

@@ -42,15 +42,15 @@ export default function LoginForm() {
     try {
       const result: LoginResponse = await login(data).unwrap();
 
+      console.log("reslat", result.data)
       // 🔥 أهم جزء
       const { accessToken, refreshToken, roles } = result.data;
-
       // ✅ خزّن accessToken
       cookieService.set("token", accessToken, {
         path: "/",
         secure: true,
         sameSite: "Strict",
-      });
+      }); 
 
       // ✅ خزّن refreshToken (ده كان ناقصك)
       cookieService.set("refreshToken", refreshToken, {

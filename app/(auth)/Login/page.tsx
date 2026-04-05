@@ -1,9 +1,5 @@
-import { headers } from "next/headers";
-
 import LoginForm from "./_components/LoginForm";
 
-export async function Loginpage() {
+export default function LoginPage() {
   return <LoginForm />;
 }
-
-export default Loginpage;

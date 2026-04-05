@@ -18,6 +18,7 @@ import {
   useUpdateLectureMutation,
 } from "@/app/redux/slices/ApiSlice";
 import { Edit2Icon } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface EditLectureModalProps {
   lecture: {
@@ -27,7 +28,7 @@ interface EditLectureModalProps {
     driveLink?: string;
     fileUrl?: string;
   };
-  trackId: string; // عشان نقدر نعمل refetch
+  trackId: string;
 }
 
 interface FormValues {
@@ -37,19 +38,13 @@ interface FormValues {
   file?: FileList;
 }
 
-export default function EditLectureModal({
-  lecture,
-  trackId,
-}: EditLectureModalProps) {
+export default function EditLectureModal({ lecture, trackId }: EditLectureModalProps) {
+  const t = useTranslations("EditLectureModal");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [updateLecture] = useUpdateLectureMutation();
-  const { refetch } = useGetlecturesidQuery(trackId); // 🔄 refetch بعد التحديث
+  const { refetch } = useGetlecturesidQuery(trackId);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormValues>({
+  const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
     defaultValues: {
       title: lecture.title,
       contentText: lecture.contentText,
@@ -65,14 +60,14 @@ export default function EditLectureModal({
         title: data.title,
         ContentText: data.contentText,
         DriveLink: data.driveLink || "",
-        file: data.file?.[0], // خليها File حقيقي
+        file: data.file?.[0], 
       }).unwrap();
 
-      toast.success("Lecture updated successfully!");
-      refetch(); // 🔄 تحديث القائمة بعد التعديل
+      toast.success(t("success"));
+      refetch(); 
     } catch (err: any) {
       console.error(err);
-      toast.error(err?.data?.message || "Failed to update lecture");
+      toast.error(err?.data?.message || t("error"));
     } finally {
       setIsSubmitting(false);
     }
@@ -81,68 +76,56 @@ export default function EditLectureModal({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="w-full">
-          <Edit2Icon />
-          Edit Lecture
+        <Button className="w-full flex items-center justify-center gap-2">
+          <Edit2Icon size={16} /> {t("editLecture")}
         </Button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-lg">
-        <DialogHeader >
-          <DialogTitle className="flex items-center gap-4">
-            Edit Lecture
-            <Edit2Icon size={15}/>
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-3">
+            {t("editLecture")} <Edit2Icon size={18} />
           </DialogTitle>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 pt-2">
           <div>
-            <label className="block text-sm font-medium mb-1">Title</label>
+            <label className="block text-sm font-semibold mb-1">{t("title")}</label>
             <input
-              {...register("title", { required: "Title is required" })}
-              className="w-full border rounded px-3 py-2"
+              {...register("title", { required: t("titleRequired") })}
+              className="w-full border rounded-xl px-4 py-2 bg-muted/50 focus:ring-1 focus:ring-primary outline-none"
             />
-            {errors.title && (
-              <p className="text-xs text-red-500">{errors.title.message}</p>
-            )}
+            {errors.title && <p className="text-xs text-rose-500 mt-1">{errors.title.message}</p>}
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1">
-              Content Text
-            </label>
+            <label className="block text-sm font-semibold mb-1">{t("contentText")}</label>
             <textarea
-              {...register("contentText", { required: "Content is required" })}
-              className="w-full border rounded px-3 py-2"
+              {...register("contentText", { required: t("contentRequired") })}
+              className="w-full border rounded-xl px-4 py-2 bg-muted/50 min-h-[100px] focus:ring-1 focus:ring-primary outline-none"
             />
-            {errors.contentText && (
-              <p className="text-xs text-red-500">
-                {errors.contentText.message}
-              </p>
-            )}
+            {errors.contentText && <p className="text-xs text-rose-500 mt-1">{errors.contentText.message}</p>}
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1">Drive Link</label>
+            <label className="block text-sm font-semibold mb-1">{t("driveLink")}</label>
             <input
               {...register("driveLink")}
-              className="w-full border rounded px-3 py-2"
+              className="w-full border rounded-xl px-4 py-2 bg-muted/50 focus:ring-1 focus:ring-primary outline-none"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1">
-              File (Optional)
-            </label>
-            <input type="file" {...register("file")} className="w-full" />
+            <label className="block text-sm font-semibold mb-1">{t("fileOptional")}</label>
+            <input type="file" {...register("file")} className="w-full border rounded-xl px-3 py-2 bg-muted/50" />
           </div>
 
-          <DialogFooter className="flex justify-end gap-2">
+          <DialogFooter className="flex justify-end gap-2 mt-6">
             <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button variant="outline" className="rounded-xl font-semibold">{t("cancel")}</Button>
             </DialogClose>
-            <Button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? "Updating..." : "Update Lecture"}
+            <Button type="submit" disabled={isSubmitting} className="rounded-xl font-bold">
+              {isSubmitting ? t("updating") : t("updateLecture")}
             </Button>
           </DialogFooter>
         </form>

@@ -15,8 +15,8 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Loader2, UploadCloud, FileText, CheckCircle } from "lucide-react";
-
+import { Loader2, UploadCloud, FileText } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { toast } from "sonner";
 import { useGetAssignmentByIdQuery, useGetAssignmentmysubmissionQuery, useSubmitAssignmentstudentsubMutation } from "@/app/redux/slices/ApiSlice";
@@ -24,6 +24,7 @@ import { useGetAssignmentByIdQuery, useGetAssignmentmysubmissionQuery, useSubmit
 type FormValues = { file: FileList };
 
 export default function AssignmentDetailPage() {
+  const t = useTranslations("AssignmentDetailPage");
   const params = useParams();
   const assignmentId = params?.assignmentId as string;
   const [serverError, setServerError] = useState<string | null>(null);
@@ -35,6 +36,7 @@ export default function AssignmentDetailPage() {
 
   const [submitAssignment, { isLoading: submitting }] =
     useSubmitAssignmentstudentsubMutation();
+  
   const {
     register,
     handleSubmit,
@@ -42,17 +44,16 @@ export default function AssignmentDetailPage() {
     reset,
   } = useForm<FormValues>();
 
-  if (!assignmentId) return <div>Invalid assignment</div>;
+  if (!assignmentId) return <div className="p-10 text-center font-bold">{t("invalidAssignment")}</div>;
   if (loadingAssignment)
     return (
       <div className="flex justify-center items-center h-[60vh]">
-        <Loader2 className="animate-spin w-6 h-6" />
+        <Loader2 className="animate-spin w-8 h-8 text-primary" />
       </div>
     );
 
   const assignment = assignmentData?.data;
   const submission = submissionData?.data;
-
   const isClosed = assignment?.isClosed;
 
   const onSubmit = async (data: FormValues) => {
@@ -62,128 +63,128 @@ export default function AssignmentDetailPage() {
     try {
       setServerError(null);
       const resalt = await submitAssignment({ assignmentId, file }).unwrap();
-      toast.success(resalt.message);
+      toast.success(resalt.message || t("success"));
       reset();
     } catch (err: any) {
-      setServerError(err?.data?.message || "Submission failed ❌");
+      setServerError(err?.data?.message || t("submissionFailed"));
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-muted/40 p-6">
-      <Card className="w-full max-w-2xl shadow-xl border-0 rounded-2xl">
-        <CardHeader className="space-y-3">
-          <CardTitle className="text-2xl font-bold">
-            {assignment?.title}
-          </CardTitle>
-          <CardDescription>
-            Submit your PDF solution before deadline.
-          </CardDescription>
-          <div className="flex gap-3 flex-wrap">
-            <Badge variant="secondary">
-              Due:{" "}
+    <div className="min-h-[calc(100vh-80px)] flex flex-col items-center justify-center p-6 w-full">
+      <Card className="w-full max-w-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(255,255,255,0.02)] border-0 rounded-3xl bg-card/60 backdrop-blur-xl">
+        <CardHeader className="space-y-4 pb-6">
+          <div>
+            <CardTitle className="text-2xl md:text-3xl font-black">{assignment?.title}</CardTitle>
+            <CardDescription className="text-sm font-medium mt-1">
+              {t("submitInstruction")}
+            </CardDescription>
+          </div>
+          
+          <div className="flex gap-2 flex-wrap pt-2">
+            <Badge variant="secondary" className="px-3 py-1 text-sm font-semibold rounded-lg bg-primary/10 text-primary">
+              {t("due")}:{" "}
               {assignment?.dueDate
                 ? new Date(assignment.dueDate).toLocaleDateString()
-                : "N/A"}
+                : t("notAvailable")}
             </Badge>
-            <Badge className="bg-primary text-white">
-              Max Score: {assignment?.maxScore}
+            <Badge className="px-3 py-1 text-sm font-bold rounded-lg bg-foreground text-background">
+              {t("maxScore")}: {assignment?.maxScore}
             </Badge>
             <Badge
-              className={
-                isClosed ? "bg-red-500 text-white" : "bg-green-500 text-white"
-              }
+              className={`px-3 py-1 text-sm font-bold rounded-lg ${
+                isClosed ? "bg-rose-500 text-white" : "bg-emerald-500 text-white"
+              }`}
             >
-              {isClosed ? "Closed" : "Open"}
+              {isClosed ? t("closed") : t("open")}
             </Badge>
           </div>
         </CardHeader>
 
-        <Separator />
+        <Separator className="bg-border/50" />
 
-        <CardContent className="pt-6 space-y-6">
-          {/* لو فيه submission */}
+        <CardContent className="pt-8 space-y-6">
           {submission ? (
-            <Card className=" p-4 rounded-xl space-y-3">
-              <div className="flex items-center gap-2">
-                <FileText className="w-5 h-5 text-muted-foreground" />
-                <a
-                  href={submission.fileUrl}
-                  target="_blank"
-                  className="text-blue-600 hover:underline"
-                >
-                  {submission.fileUrl.split("/").pop()}
-                </a>
+            <div className="bg-muted/40 border p-6 rounded-2xl space-y-5 shadow-sm">
+              <div className="flex items-center gap-3">
+                <div className="bg-blue-500/10 p-2.5 rounded-xl">
+                   <FileText className="w-6 h-6 text-blue-500" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <a href={submission.fileUrl} target="_blank" className="text-blue-600 font-bold hover:underline truncate block">
+                    {submission.fileUrl.split("/").pop()}
+                  </a>
+                  <p className="text-xs text-muted-foreground mt-0.5">{t("submittedFile")}</p>
+                </div>
               </div>
-              <div className="flex gap-2">
-                <Badge className="bg-green-500">
-                  Score:{" "}
-                  {submission.score ? (
-                    <>{submission.score}</>
-                  ) : (
-                    <>
-                      <p> whaite for Score you..</p>
-                    </>
-                  )}
+
+              <div className="flex gap-2 flex-wrap">
+                <Badge className="px-3 py-1.5 rounded-xl text-sm font-bold bg-emerald-500 hover:bg-emerald-600">
+                  {t("score")}:{" "}
+                  {submission.score ? submission.score : <span className="font-medium ms-1 opacity-80">{t("waitingForScore")}</span>}
                 </Badge>
-                <Badge className="bg-blue-500 text-white">
-                  {submission.isFinalized
-                    ? "Finalized"
-                    : "Pleas Whait is Pending for submitoin..."}
+                <Badge className={`px-3 py-1.5 rounded-xl text-sm font-bold shadow-sm ${submission.isFinalized ? 'bg-primary text-primary-foreground' : 'bg-amber-500 text-white'}`}>
+                  {submission.isFinalized ? t("finalized") : t("pendingReview")}
                 </Badge>
               </div>
+
               {submission.feedback && (
-                <p className="text-muted-foreground">
-                  Feedback: {submission.feedback}
-                </p>
+                <div className="bg-card p-4 rounded-xl border shadow-sm">
+                  <p className="text-sm font-bold text-foreground mb-1">{t("feedback")}:</p>
+                  <p className="text-sm text-muted-foreground">{submission.feedback}</p>
+                </div>
               )}
-            </Card>
+            </div>
           ) : !isClosed ? (
-            // لو مفيش submission وassignment مفتوح
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-              <div className="border-2 border-dashed rounded-xl p-6 text-center hover:border-primary transition">
-                <UploadCloud className="mx-auto mb-3 w-8 h-8 text-muted-foreground" />
+              <label 
+                 className={`flex flex-col items-center justify-center border-2 border-dashed rounded-3xl p-8 text-center transition-all cursor-pointer ${errors.file ? 'border-rose-500 bg-rose-500/5' : 'border-border hover:border-primary hover:bg-primary/5'}`}
+              >
+                <div className="bg-primary/10 p-4 rounded-full mb-4">
+                  <UploadCloud className="w-8 h-8 text-primary" />
+                </div>
+                <p className="text-base font-bold mb-1">{t("uploadTitle")}</p>
+                <p className="text-sm font-medium text-muted-foreground mb-4">
+                  {t("onlyPdfAllowed")}
+                </p>
                 <Input
                   type="file"
                   accept="application/pdf"
-                  className="cursor-pointer"
+                  className="hidden"
                   {...register("file", {
-                    required: "PDF file is required",
+                    required: t("pdfRequired"),
                     validate: (files) =>
-                      files?.[0]?.type === "application/pdf" ||
-                      "Only PDF files are allowed",
+                      files?.[0]?.type === "application/pdf" || t("onlyPdfAllowed"),
                   })}
                 />
-                <p className="text-xs text-muted-foreground mt-2">
-                  Only PDF files are allowed
-                </p>
+                
                 {errors.file && (
-                  <p className="text-sm text-red-500 mt-2">
+                  <p className="text-sm font-bold text-rose-500 mt-2 bg-rose-500/10 px-3 py-1 rounded-full">
                     {errors.file.message}
                   </p>
                 )}
-              </div>
+              </label>
+
               {serverError && (
-                <div className="bg-red-50 text-red-600 text-sm p-3 rounded-lg border border-red-200">
+                <div className="bg-rose-500/10 text-rose-600 font-bold text-sm p-4 rounded-2xl">
                   {serverError}
                 </div>
               )}
+              
               <Button
                 type="submit"
                 disabled={submitting}
-                className="w-full rounded-xl text-base"
-                size="lg"
+                className="w-full rounded-2xl h-14 font-black tracking-wide text-[15px] shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-shadow"
               >
-                {submitting && (
-                  <Loader2 className="me-2 h-4 w-4 animate-spin" />
-                )}
-                {submitting ? "Submitting..." : "Submit Assignment"}
+                {submitting && <Loader2 className="me-2 h-5 w-5 animate-spin" />}
+                {submitting ? t("submitting") : t("submitAssignment")}
               </Button>
             </form>
           ) : (
-            // لو مفيش submission وassignment مقفول
-            <div className="text-center p-6 bg-red-50 border border-red-200 rounded-xl text-red-600">
-              ❌ Assignment is closed. You can't submit anymore.
+            <div className="text-center p-8 bg-rose-500/10 border border-rose-500/20 rounded-3xl flex flex-col items-center justify-center">
+              <span className="text-3xl mb-3">🔒</span>
+              <p className="font-bold text-rose-600 text-lg">{t("assignmentClosed")}</p>
+              <p className="text-sm font-medium text-rose-600/70 mt-1">{t("cannotSubmitAnymore")}</p>
             </div>
           )}
         </CardContent>

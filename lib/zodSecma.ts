@@ -15,6 +15,27 @@ export const loginSchema = z.object({
 
   rememberMe: z.boolean().optional(),
 });
+export const adminscemacreta = z.object({
+  email: z
+    .string()
+    .email({ message: "Username must be a valid email" })
+    .min(5, { message: "Username must be at least 5 characters" }),
+  
+  password: z
+    .string()
+    .min(8, { message: "Password must be at least 8 characters" })
+    .max(30, { message: "Password cannot exceed 30 characters" }),
+
+
+    firstName : z.string()
+    .min(8, { message: "firstName must be at least 5 characters" })
+    .max(30, { message: "firstName cannot exceed 30 characters" }),
+
+    lastName : z.string()
+    .min(8, { message: "lastName must be at least 5 characters" })
+    .max(30, { message: "lastName cannot exceed 30 characters" }),
+
+});
 
 export const activeScemaStudent = z.object({
   code: z
@@ -100,6 +121,9 @@ export const createAssignmentSchema = z.object({
       (date) => !isNaN(Date.parse(date)),
       { message: "Due date must be a valid date" }
     ),
+fileAsimment: z.any().optional()
+
+
 });
 
 
@@ -149,6 +173,8 @@ export const updateAssignmentSchema = z.object({
   title: z.string().min(3, "Title required"),
   maxScore: z.number().min(1, "Score required"),
   dueDate: z.string().min(1, "Due date required"),
+    fileAsimment: z.any().optional(),
+
 });
 export const createArticleSchema = z.object({
   title: z
@@ -173,6 +199,7 @@ export const createArticleSchema = z.object({
   .optional(),
 });
 export type CreateArticleFormValues = z.infer<typeof createArticleSchema>;
+export type CreateADminFormValues = z.infer<typeof adminscemacreta>;
 export type UpdateAssignmentFormValues = z.infer<typeof updateAssignmentSchema>;
 export type editLectureSchemaValues = z.infer<typeof editLectureSchema>;
 export type UpdateBatchFormValues = z.infer<typeof updateBatchSchema>;

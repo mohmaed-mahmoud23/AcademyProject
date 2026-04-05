@@ -60,7 +60,7 @@ export function middleware(request: NextRequest) {
   // =========================
   // حماية الرول
   // =========================
-  if (isAdminRoute && role !== "superadmin") {
+if (isAdminRoute && role !== "superadmin" && role !== "admin") {
     return NextResponse.redirect(new URL("/dashboard", request.url)); // 👈 اتغيرت هنا
   }
 
@@ -68,6 +68,13 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/Admin", request.url));
   }
 
+
+  
+if (role === "admin" || role === "superadmin") {
+  if (!isAdminRoute) {
+    return NextResponse.redirect(new URL("/Admin", request.url));
+  }
+}
   return NextResponse.next();
 }
 

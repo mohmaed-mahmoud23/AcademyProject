@@ -1,6 +1,7 @@
 // src/services/apiSlice.ts
 import {
   ActivateStudentResponse,
+  AdminResponse,
   ApiResponse,
   AssignmentDetailsResponse,
   AssignmentResponse,
@@ -103,6 +104,35 @@ export const ApiSlice = createApi({
         body: credentials,
       }),
     }),
+    cerateadmin: builder.mutation<AdminResponse, { email: string; password: string, firstName: string, lastName: string }>({
+      query: (credentials) => ({
+        url: "auth/admin/create",
+        method: "POST",
+        body: credentials,
+      }),
+      invalidatesTags: ["Dashboard"],
+
+    }),
+
+
+    getAdmins: builder.query<AdminResponse, { search?: string; includeSuperAdmins?: boolean }>({
+      query: ({ search = "", includeSuperAdmins = false }) => ({
+        url: "auth/admin/admins",
+        params: {
+          Search: search,
+          IncludeSuperAdmins: includeSuperAdmins,
+        },
+      }),
+      providesTags: ["Dashboard"],
+    }),
+    deleteAdmin: builder.mutation<ApiResponse<string>, string>({
+      query: (userId) => ({
+        url: `auth/admin/users/${userId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Dashboard"],
+    }),
+
 
     ActiveStudent: builder.mutation<ActivateStudentResponse, { code: string; password: string }>({
       query: (credentials) => ({
@@ -137,13 +167,13 @@ export const ApiSlice = createApi({
       query: ({ trackId, studentId }) => `tracks/${trackId}/students/${studentId}/progress`,
     }),
 
-createArticle: builder.mutation<CreateArticleResponse, CreateArticleRequest>({
-  query: (body) => ({
-    url: "articles",
-    method: "POST",
-    body,
-  }),
-}),
+    createArticle: builder.mutation<CreateArticleResponse, CreateArticleRequest>({
+      query: (body) => ({
+        url: "articles",
+        method: "POST",
+        body,
+      }),
+    }),
 
     getBatchStudents: builder.query<BatchStudentsResponse, string>({
       query: (batchId) => `batches/${batchId}/students`,
@@ -182,7 +212,8 @@ createArticle: builder.mutation<CreateArticleResponse, CreateArticleRequest>({
         method: "POST",
         body: { name },
       }),
-invalidatesTags: ["Track","Batch","Dashboard"]    }),
+      invalidatesTags: ["Track", "Batch", "Dashboard"]
+    }),
 
     // ================= LECTURES =================
     getlechtuertrack: builder.query<GetLecturesResponse, string>({
@@ -202,7 +233,8 @@ invalidatesTags: ["Track","Batch","Dashboard"]    }),
         if (file?.length) formData.append("file", file[0]);
         return { url: `tracks/${trackId}/lectures`, method: "POST", body: formData };
       },
-invalidatesTags: ["Lecture","Track","Dashboard"]    }),
+      invalidatesTags: ["Lecture", "Track", "Dashboard"]
+    }),
 
     // ================= ASSIGNMENTS =================
     getlecturesidassignments: builder.query<AssignmentResponse, string>({
@@ -214,54 +246,78 @@ invalidatesTags: ["Lecture","Track","Dashboard"]    }),
       query: (lectureId) => `lectures/${lectureId}/assignments`,
       providesTags: ["Assignment"],
     }),
-// ================= DELETE LECTURE =================
+    // ================= DELETE LECTURE =================
 
-deleteLecture: builder.mutation<ApiResponse<string>, string>({
-  query: (lectureId) => ({
-    url: `lectures/${lectureId}`,
-    method: "DELETE",
-  }),
-  invalidatesTags: ["Lecture", "Assignment", "Track", "Dashboard"],
-}),
+    deleteLecture: builder.mutation<ApiResponse<string>, string>({
+      query: (lectureId) => ({
+        url: `lectures/${lectureId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Lecture", "Assignment", "Track", "Dashboard"],
+    }),
 
-// ================= DELETE TRACK =================
+    // ================= DELETE TRACK =================
 
-deleteTrack: builder.mutation<ApiResponse<string>, string>({
-  query: (trackId) => ({
-    url: `tracks/${trackId}`,
-    method: "DELETE",
-  }),
-  invalidatesTags: ["Track", "Lecture", "Dashboard"],
-}),
+    deleteTrack: builder.mutation<ApiResponse<string>, string>({
+      query: (trackId) => ({
+        url: `tracks/${trackId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Track", "Lecture", "Dashboard"],
+    }),
 
-deleteAssignment: builder.mutation<ApiResponse<string>, string>({
-  query: (assignmentId) => ({
-    url: `assignments/${assignmentId}`,
-    method: "DELETE",
-  }),
-  invalidatesTags: ["Assignment", "Lecture", "Dashboard"],
-}),
+    deleteAssignment: builder.mutation<ApiResponse<string>, string>({
+      query: (assignmentId) => ({
+        url: `assignments/${assignmentId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Assignment", "Lecture", "Dashboard"],
+    }),
 
 
 
-   getMe: builder.query<IUser, void>({
-  query: () => "auth/me",
-  providesTags:["Dashboard"]
-}),
+    getMe: builder.query<IUser, void>({
+      query: () => "auth/me",
+      providesTags: ["Dashboard"]
+    }),
+
+
     postAssignment: builder.mutation<
       ApiResponse<any>,
-      { lectureId: string; title: string; maxScore: number; dueDate: string }
+      {
+        lectureId: string;
+        title: string;
+        maxScore: number;
+        dueDate: string;
+        file?: File; // ✅ أضفنا file هنا
+      }
     >({
-      query: ({ lectureId, title, maxScore, dueDate }) => ({
-        url: `lectures/${lectureId}/assignments`,
-        method: "POST",
-        body: { title, maxScore, dueDate },
-      }),
-invalidatesTags: ["Assignment","Lecture","Dashboard"]    }),
+      query: ({ lectureId, title, maxScore, dueDate, file }) => {
+        const formData = new FormData();
+
+        formData.append("title", title);
+        formData.append("maxScore", String(maxScore));
+        formData.append("dueDate", dueDate);
+
+        // ✅ رفع الملف لو موجود
+        if (file) {
+          formData.append("file", file);
+        }
+
+        return {
+          url: `lectures/${lectureId}/assignments`,
+          method: "POST",
+          body: formData, // ✅ بدل JSON
+        };
+      },
+
+      invalidatesTags: ["Assignment", "Lecture", "Dashboard"], // 🔥 refresh تلقائي
+    }),
 
     closeAssignment: builder.mutation<ApiResponse<any>, string>({
       query: (assignmentId) => ({ url: `assignments/${assignmentId}/close`, method: "POST" }),
-invalidatesTags: ["Assignment","Lecture","Dashboard"]    }),
+      invalidatesTags: ["Assignment", "Lecture", "Dashboard"]
+    }),
 
     getAssignmentSubmissions: builder.query<AssignmentSubmissionsResponse, string>({
       query: (assignmentId) => `assignments/${assignmentId}/submissions`,
@@ -282,7 +338,8 @@ invalidatesTags: ["Assignment","Lecture","Dashboard"]    }),
         method: "POST",
         body: { submissionId, score, feedback },
       }),
-invalidatesTags: ["Submission","Assignment","Dashboard"]    }),
+      invalidatesTags: ["Submission", "Assignment", "Dashboard"]
+    }),
 
     // ================= DETAILS =================
     gettracksdetails: builder.query<TrackResponse, string>({
@@ -329,74 +386,86 @@ invalidatesTags: ["Submission","Assignment","Dashboard"]    }),
         formData.append("file", file);
         return { url: `assignments/${assignmentId}/submit`, method: "POST", body: formData };
       },
-invalidatesTags: ["Submission","Assignment","Dashboard"]    }),
+      invalidatesTags: ["Submission", "Assignment", "Dashboard"]
+    }),
 
-updateBatch: builder.mutation({
-  query: (body) => ({ url: "/batches", method: "PUT", body }),
-  invalidatesTags: ["Batch","Dashboard"],
-}),
+    updateBatch: builder.mutation({
+      query: (body) => ({ url: "/batches", method: "PUT", body }),
+      invalidatesTags: ["Batch", "Dashboard"],
+    }),
 
-updateTrack: builder.mutation({
-  query: ({ trackId, name }) => ({
-    url: `tracks/${trackId}`,
-    method: "PUT",
-    body: { name },
-  }),
-  invalidatesTags: ["Track","Dashboard"],
-}),
+    updateTrack: builder.mutation({
+      query: ({ trackId, name }) => ({
+        url: `tracks/${trackId}`,
+        method: "PUT",
+        body: { name },
+      }),
+      invalidatesTags: ["Track", "Dashboard"],
+    }),
     getNotifications: builder.query<any, void>({ query: () => "/notifications" }),
 
     getUnreadCount: builder.query<number, void>({ query: () => "/notifications/unread-count" }),
-deleteBatch: builder.mutation<ApiResponse<string>, string>({
-  query: (batchId) => ({
-    url: `batches/${batchId}`,
-    method: "DELETE",
-  }),
-  invalidatesTags: ["Batch", "Dashboard"],
-}),
+    deleteBatch: builder.mutation<ApiResponse<string>, string>({
+      query: (batchId) => ({
+        url: `batches/${batchId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Batch", "Dashboard"],
+    }),
     markNotificationRead: builder.mutation<void, string>({
       query: (id) => ({ url: `/notifications/${id}/read`, method: "POST" }),
     }),
 
-updateAssignment: builder.mutation<
-  ApiResponse<string>,
-  { assignmentId: string; title: string; maxScore: number; dueDate: string }
->({
-  query: ({ assignmentId, title, maxScore, dueDate }) => ({
-    url: `assignments/${assignmentId}`,
-    method: "PUT",
-    body: {
-      assignmentId,
-      title,
-      maxScore,
-      dueDate,
-    },
-  }),
-  invalidatesTags: ["Assignment", "Lecture", "Dashboard"],
-}),
+    updateAssignment: builder.mutation<
+      ApiResponse<string>,
+      {
+        assignmentId: string;
+        title: string;
+        maxScore: number;
+        dueDate: string;
+        file?: File;
+      }
+    >({
+      query: ({ assignmentId, title, maxScore, dueDate, file }) => {
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("maxScore", String(maxScore));
+        formData.append("dueDate", dueDate);
+
+        if (file) {
+          formData.append("file", file);
+        }
+
+        return {
+          url: `assignments/${assignmentId}`,
+          method: "PUT",
+          body: formData,
+        };
+      },
+      invalidatesTags: ["Assignment", "Lecture", "Dashboard"],
+    }),
 
 
+    updateLecture: builder.mutation<
+      ApiResponse<string>,
+      { lectureId: string; title: string; ContentText: string; DriveLink: string; file?: File }
+    >({
+      query: ({ lectureId, title, ContentText, DriveLink, file }) => {
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("ContentText", ContentText);
+        formData.append("DriveLink", DriveLink);
+        if (file) formData.append("file", file);
 
-updateLecture: builder.mutation<
-  ApiResponse<string>,
-  { lectureId: string; title: string; ContentText: string; DriveLink: string; file?: File }
->({
-  query: ({ lectureId, title, ContentText, DriveLink, file }) => {
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("ContentText", ContentText);
-    formData.append("DriveLink", DriveLink);
-    if (file) formData.append("file", file); 
-    
-    
-    return {
-      url: `lectures/${lectureId}`,
-      method: "PUT",
-      body: formData,
-    };
-  },
-  invalidatesTags: ["Lecture", "Track", "Dashboard"],
-}),
+
+        return {
+          url: `lectures/${lectureId}`,
+          method: "PUT",
+          body: formData,
+        };
+      },
+      invalidatesTags: ["Lecture", "Track", "Dashboard"],
+    }),
 
     markAllNotificationsRead: builder.mutation<void, void>({
       query: () => ({ url: "/notifications/read-all", method: "POST" }),
@@ -420,7 +489,7 @@ export const {
   useGetBatchtracksQuery,
   useDeleteStudentMutation,
   usePostbatchTracksMutation,
-    useCreateArticleMutation,
+  useCreateArticleMutation,
   useGettracksdetailsQuery,
   usePostLectureMutation,
   useGetlechtuertrackQuery,
@@ -440,15 +509,18 @@ export const {
   useMarkNotificationReadMutation,
   useMarkAllNotificationsReadMutation,
   useSubmitAssignmentstudentsubMutation,
-    useUpdateTrackMutation,
-useUpdateLectureMutation,
+  useUpdateTrackMutation,
+  useCerateadminMutation,
+  useUpdateLectureMutation,
   useGetAdminDashboardQuery,
   useGetAssignmentmysubmissionQuery,
   useDeleteAssignmentMutation,
   usePostAssignmentMutation,
   useLogoutMutation,
-   useDeleteLectureMutation,
-   useDeleteBatchMutation,
+  useDeleteLectureMutation,
+  useDeleteBatchMutation,
+  useGetAdminsQuery,
+  useDeleteAdminMutation,
   useDeleteTrackMutation,
   useUpdateBatchMutation,
 } = ApiSlice;

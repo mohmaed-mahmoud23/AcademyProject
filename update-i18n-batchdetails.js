@@ -1,0 +1,103 @@
+const fs = require('fs');
+const path = require('path');
+
+const enPath = path.join(__dirname, 'messages/en.json');
+const arPath = path.join(__dirname, 'messages/ar.json');
+
+const enData = JSON.parse(fs.readFileSync(enPath, 'utf8'));
+const arData = JSON.parse(fs.readFileSync(arPath, 'utf8'));
+
+enData.BatchDetails = {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "students": "Students",
+    "capacity": "Capacity",
+    "tracks": "Tracks",
+    "activeTracksRunning": "Active Tracks Running",
+    "avgPerformance": "Avg. Performance",
+    "globalAvgStatus": "Global Trend",
+    "batchStudents": "Batch Students",
+    "totalEnrolled": "Total Enrolled",
+    "addStudent": "Add Student",
+    "addNewStudent": "Add New Student",
+    "email": "Email Address",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "gender": "Gender",
+    "selectGender": "Select Gender",
+    "male": "Male",
+    "female": "Female",
+    "other": "Other",
+    "createStudent": "Enrol Student",
+    "studentCreated": "Student enrolled successfully",
+    "studentDeleted": "Student removed successfully",
+    "score": "Score",
+    "view": "View",
+    "noStudents": "No Students Yet",
+    "addFirstStudent": "Add your first student to get started.",
+    "performanceChart": "Performance Analytics",
+    "studentsCount": "Students Count",
+    "batchTracks": "Batch Tracks",
+    "createTrack": "Create Track",
+    "trackName": "Track Name",
+    "trackCreated": "Track created successfully",
+    "trackDeleted": "Track removed successfully",
+    "lecturesCount": "{count} Lectures",
+    "delete": "Delete",
+    "deleteTrack": "Delete Track",
+    "deleteTrackConfirm": "Are you sure you want to permanently delete this track?",
+    "cancel": "Cancel",
+    "noTracks": "No tracks added yet",
+    "searchStudentPlaceholder": "Search by name or email...",
+    "editTrack": "Edit Track",
+    "updateTrack": "Update Track"
+};
+
+arData.BatchDetails = {
+    "loading": "جاري التحميل...",
+    "error": "حدث خطأ ما",
+    "students": "الطلاب",
+    "capacity": "السعة الاستيعابية",
+    "tracks": "المسارات",
+    "activeTracksRunning": "مسارات تعليمية نشطة",
+    "avgPerformance": "متوسط الأداء",
+    "globalAvgStatus": "حالة الأداء العام",
+    "batchStudents": "طلاب الدفعة",
+    "totalEnrolled": "إجمالي القبول",
+    "addStudent": "إضافة طالب",
+    "addNewStudent": "تسجيل طالب جديد",
+    "email": "البريد الإلكتروني",
+    "firstName": "الاسم الأول",
+    "lastName": "اسم العائلة",
+    "gender": "الجنس",
+    "selectGender": "اختر الجنس",
+    "male": "ذكر",
+    "female": "أنثى",
+    "other": "آخر",
+    "createStudent": "تسجيل الطالب",
+    "studentCreated": "تمت إضافة الطالب",
+    "studentDeleted": "تم حذف الطالب",
+    "score": "التقييم",
+    "view": "عرض",
+    "noStudents": "لا يوجد طلاب حالياً",
+    "addFirstStudent": "قم بإضافة أول طالب للبدء.",
+    "performanceChart": "تحليلات الأداء",
+    "studentsCount": "عدد الطلاب",
+    "batchTracks": "مسارات الدفعة",
+    "createTrack": "إنشاء مسار",
+    "trackName": "اسم المسار",
+    "trackCreated": "تم إنشاء المسار",
+    "trackDeleted": "تم الحذف بنجاح",
+    "lecturesCount": "{count} محاضرات",
+    "delete": "حذف",
+    "deleteTrack": "حذف المسار",
+    "deleteTrackConfirm": "هل أنت متأكد من حذف هذا المسار نهائياً؟",
+    "cancel": "إلغاء",
+    "noTracks": "لم يتم إضافة مسارات",
+    "searchStudentPlaceholder": "البحث بالاسم أو البريد...",
+    "editTrack": "تعديل المسار",
+    "updateTrack": "تحديث المسار"
+};
+
+fs.writeFileSync(enPath, JSON.stringify(enData, null, 2));
+fs.writeFileSync(arPath, JSON.stringify(arData, null, 2));

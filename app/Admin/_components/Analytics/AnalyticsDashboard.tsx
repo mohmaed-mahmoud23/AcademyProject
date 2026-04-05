@@ -9,7 +9,7 @@ import { startNotificationConnection } from "@/lib/signalr";
 import { AnalyticsSkeleton } from "./Common/AnalyticsSkeleton";
 import { AnalyticsErrorBoundary } from "./Common/AnalyticsErrorBoundary";
 import { SectionCards } from "./SectionCards";
-import { AnalyticsCharts } from "./AnalyticsCharts";
+import { TracksAnalyticsChart } from "./TracksAnalyticsChart";
 import { TopStudentsLeaderboard } from "./TopStudentsLeaderboard";
 import { SmartInsights } from "@/app/Admin/_components/Analytics/SmartInsights";
 import { ActivityTimeline } from "./ActivityTimeline";
@@ -110,13 +110,10 @@ export function AnalyticsDashboard() {
         {/* Left Side: Deep Analytics & Leaders */}
         <div className="xl:col-span-8 space-y-12">
 
-          {/* Charts Row */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Tracks Analytics Section */}
+          <div className="w-full">
             <AnalyticsErrorBoundary>
-              <AnalyticsCharts tracks={dashboardData.topTracks} type="popularity" />
-            </AnalyticsErrorBoundary>
-            <AnalyticsErrorBoundary>
-              <AnalyticsCharts tracks={dashboardData.topTracks} type="growth" />
+              <TracksAnalyticsChart tracks={dashboardData.topTracks} />
             </AnalyticsErrorBoundary>
           </div>
 

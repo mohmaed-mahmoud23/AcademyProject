@@ -6,8 +6,26 @@ export interface LoginData {
   roles: string[];
 }
 
+
+
+
 export interface LoginResponse {
   data: LoginData;
+  message: string;
+  isSuccess: boolean;
+  statusCode: number;
+  errors: string[];
+  timestamp: string;
+}
+export interface AdminData {
+  adminId: string
+  email: string;
+
+  refreshToken: string;
+  role: string
+}
+export interface AdminResponse {
+  data: AdminData;
   message: string;
   isSuccess: boolean;
   statusCode: number;
@@ -279,6 +297,7 @@ export interface Assignment {
   title: string;
   maxScore: number,
   dueDate: string,
+  file?: File;
   isClosed: boolean
 }
 
@@ -329,6 +348,7 @@ export interface Lecturere {
   driveLink: string;
   fileUrl: string;
   trackId: string;
+
 }
 
 export interface GetLecturesResponse {
@@ -401,6 +421,7 @@ export interface AssignmentDetails {
   lectureTitle: string;
   trackId: string;
   trackName: string;
+  fileUrl: string; // ✅ هنا الصح
 }
 
 export interface AssignmentDetailsResponse {
@@ -470,6 +491,8 @@ export interface StudentProgress {
   completionPercentage: number;
   rank: number;
   averageScore: number;
+  studentName: string;
+  studentEmail: string
 }
 
 export interface StudentProgressResponse {

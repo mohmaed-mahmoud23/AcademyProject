@@ -38,7 +38,7 @@ export default async function RootLayout({
   const isRTL = locale === "ar";
 
   return (
-    <html lang={locale} dir={isRTL ? "rtl" : "ltr"}>
+    <html lang={locale} dir={isRTL ? "rtl" : "ltr"} suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${cairo.variable} antialiased`}
       >
