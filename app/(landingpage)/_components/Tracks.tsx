@@ -2,21 +2,35 @@
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 
 export default function Tracks() {
   const t = useTranslations("Tracks");
+  const router = useRouter();
 
   const tracks = [
-    { title: "HTML", image: "/images/html5-original.svg" },
-    { title: "CSS", image: "/images/css3-original.svg" },
-    { title: "JavaScript", image: "/images/javascript-original.svg" },
-    { title: "SASS", image: "/images/sass-original.svg" },
-    { title: "TypeScript", image: "/images/typescript-original.svg" },
-    { title: "C++", image: "/images/cplusplus-original.svg" },
-    { title: "PHP", image: "/images/php-original.svg" },
-    { title: "Python", image: "/images/python-original.svg" },
-    { title: "React", image: "/images/react-original.svg" },
-    { title: "Tailwind", image: "/images/tailwindcss-icon.svg" },
+    { title: "HTML", slug: "HTML", image: "/images/html5-original.svg" },
+    { title: "CSS", slug: "CSS", image: "/images/css3-original.svg" },
+    {
+      title: "JavaScript",
+      slug: "JavaScript",
+      image: "/images/javascript-original.svg",
+    },
+    { title: "SASS", slug: "SASS", image: "/images/sass-original.svg" },
+    {
+      title: "TypeScript",
+      slug: "TypeScript",
+      image: "/images/typescript-original.svg",
+    },
+    // { title: "C++", slug: "cpp", image: "/images/cplusplus-original.svg" },
+    { title: "PHP", slug: "PHP", image: "/images/php-original.svg" },
+    { title: "Python", slug: "Python", image: "/images/python-original.svg" },
+    { title: "React", slug: "React", image: "/images/react-original.svg" },
+    {
+      title: "Tailwind",
+      slug: "Tailwind",
+      image: "/images/tailwindcss-icon.svg",
+    },
   ];
 
   return (
@@ -31,6 +45,7 @@ export default function Tracks() {
         {tracks.map((track, index) => (
           <div
             key={index}
+            onClick={() => router.push(`/${track.slug}`)} // 🔥 دي المهمة
             className="bg-gray-200 rounded-xl p-6 flex flex-col items-center justify-center transition-all duration-300 hover:bg-white hover:shadow-lg hover:-translate-y-1 cursor-pointer dark:bg-muted/30 dark:hover:bg-muted/60"
           >
             {/* Icon */}

@@ -3,6 +3,7 @@ import Logo from "@/public/images/Habib academy svg Logo.svg";
 import { Globe, Share2 } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 
 export default function Footer() {
@@ -44,7 +45,9 @@ export default function Footer() {
         <div className="space-y-2">
           <h3 className="font-semibold">{t("company")}</h3>
           <ul className="space-y-1 text-muted-foreground text-sm">
-            <li className="hover:text-primary cursor-pointer">{t("company1")}</li>
+            <li className="hover:text-primary cursor-pointer">
+              <Link href="/about">{t("company1")}</Link>
+            </li>
             <li className="hover:text-primary cursor-pointer">{t("company2")}</li>
             <li className="hover:text-primary cursor-pointer">{t("company3")}</li>
             <li className="hover:text-primary cursor-pointer">{t("company4")}</li>
