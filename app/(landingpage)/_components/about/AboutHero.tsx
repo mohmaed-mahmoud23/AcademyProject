@@ -44,6 +44,10 @@ export default function AboutHero() {
               {/* Leader 1: Mahmoud Habib */}
               <div className="p-6 rounded-3xl border border-border/50 bg-card/50 backdrop-blur-xl shadow-2xl space-y-6">
                 <div className="flex items-center gap-4">
+                  <Avatar className="w-16 h-16 border-2 border-background shadow-sm">
+                    <AvatarImage src="/Habib.png" alt={t("ceoName")} className="object-cover" />
+                    <AvatarFallback className="text-xl font-bold bg-secondary text-secondary-foreground">م</AvatarFallback>
+                  </Avatar>
                   <div className="space-y-1">
                     <h3 className="text-xl font-bold text-foreground">{t("ceoName")}</h3>
                     <p className="text-sm font-medium text-primary">{t("ceoRole")}</p>
@@ -71,35 +75,7 @@ export default function AboutHero() {
                 </div>
               </div>
 
-              {/* Leader 2: Sara Abdullah */}
-              <div className="p-6 rounded-3xl border border-border/50 bg-card/50 backdrop-blur-xl shadow-2xl space-y-6">
-                <div className="flex items-center gap-4">
-                  <div className="space-y-1">
-                    <h3 className="text-xl font-bold text-foreground">{t("saraName")}</h3>
-                    <p className="text-sm font-medium text-primary">{t("saraRole")}</p>
-                  </div>
-                </div>
-
-                <div className="space-y-4 pt-4 border-t border-border/50">
-                  <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                    {t("ceoExpTitle")}
-                  </p>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="flex items-center gap-3 text-sm text-foreground/80">
-                      <div className="p-2 rounded-xl bg-blue-500/10 text-blue-500">
-                        <Briefcase size={18} />
-                      </div>
-                      {t("saraExp1")}
-                    </div>
-                    <div className="flex items-center gap-3 text-sm text-foreground/80">
-                      <div className="p-2 rounded-xl bg-purple-500/10 text-purple-500">
-                        <GraduationCap size={18} />
-                      </div>
-                      {t("saraExp2")}
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {/* Sara Abdullah has been moved to her own section below */}
             </div>
 
             <div className="flex flex-wrap gap-4 mt-6">
@@ -154,6 +130,7 @@ export default function AboutHero() {
             <div className="absolute inset-0 blur-[100px] bg-primary/20 -z-10 rounded-full sm:scale-110" />
           </motion.div>
         </div>
+
       </div>
     </section>
   );

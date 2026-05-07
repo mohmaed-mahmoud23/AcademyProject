@@ -224,7 +224,7 @@
     "error": "حدث خطأ ما"
   },
   "AboutMe": {
-    "TEXT": "أنا محمد محمود",
+    "TEXT": "أنا م محمود",
     "description": "مطور Full-Stack شغوف ومُعلّم. أقوم بإنشاء تجارب ويب تفاعلية وجذابة، وأساعد الطلاب على التعلم بشكل عملي."
   },
   "AboutUs": {
@@ -250,7 +250,7 @@
     "aHusseinRole": "خبرة 3 سنوات | دعم فني ",
     "hAttarName": "حلا",
     "hAttarRole": "خبرة سنة واحدة | متخصص دعم",
-    "mahmoudMahmoudName": "محمود محمود",
+    "mahmoudMahmoudName": "محمد محمود",
 "mahmoudMahmoudRole": "   خبرة 3 سنوات (فريلانسر) | دعم فني"  },
   "EditBatchModal": {
     "edit": "تعديل",

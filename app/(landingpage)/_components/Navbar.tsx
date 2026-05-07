@@ -70,16 +70,7 @@ export default function Navbar() {
             <MegaMenu key={nav.title} nav={nav} />
           ))}
 
-          <Link href="/aboutme" className="hidden sm:flex">
-            <Button
-              size="sm"
-              className="bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold
-               hover:from-pink-500 hover:to-purple-500
-               animate-pulse transition-all duration-700"
-            >
-              {t("aboutMe")}
-            </Button>
-          </Link>
+  
         </nav>
 
         {/* 🚀 Right */}
@@ -142,16 +133,7 @@ export default function Navbar() {
               <Button className="w-full">{t("getStarted")}</Button>
             </Link>
 
-            <Link href="/aboutme">
-              <Button
-                size="sm"
-                className="bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold
-               hover:from-pink-500 hover:to-purple-500 w-full
-               animate-pulse transition-all duration-700"
-              >
-                {t("aboutMe")}
-              </Button>
-            </Link>
+    
           </div>
         </div>
       )}
