@@ -36,7 +36,7 @@ export default function AssignmentDetailPage() {
 
   const [submitAssignment, { isLoading: submitting }] =
     useSubmitAssignmentstudentsubMutation();
-  
+
   const {
     register,
     handleSubmit,
@@ -80,7 +80,7 @@ export default function AssignmentDetailPage() {
               {t("submitInstruction")}
             </CardDescription>
           </div>
-          
+
           <div className="flex gap-2 flex-wrap pt-2">
             <Badge variant="secondary" className="px-3 py-1 text-sm font-semibold rounded-lg bg-primary/10 text-primary">
               {t("due")}:{" "}
@@ -92,9 +92,8 @@ export default function AssignmentDetailPage() {
               {t("maxScore")}: {assignment?.maxScore}
             </Badge>
             <Badge
-              className={`px-3 py-1 text-sm font-bold rounded-lg ${
-                isClosed ? "bg-rose-500 text-white" : "bg-emerald-500 text-white"
-              }`}
+              className={`px-3 py-1 text-sm font-bold rounded-lg ${isClosed ? "bg-rose-500 text-white" : "bg-emerald-500 text-white"
+                }`}
             >
               {isClosed ? t("closed") : t("open")}
             </Badge>
@@ -108,7 +107,7 @@ export default function AssignmentDetailPage() {
             <div className="bg-muted/40 border p-6 rounded-2xl space-y-5 shadow-sm">
               <div className="flex items-center gap-3">
                 <div className="bg-blue-500/10 p-2.5 rounded-xl">
-                   <FileText className="w-6 h-6 text-blue-500" />
+                  <FileText className="w-6 h-6 text-blue-500" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <a href={submission.fileUrl} target="_blank" className="text-blue-600 font-bold hover:underline truncate block">
@@ -137,8 +136,8 @@ export default function AssignmentDetailPage() {
             </div>
           ) : !isClosed ? (
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-              <label 
-                 className={`flex flex-col items-center justify-center border-2 border-dashed rounded-3xl p-8 text-center transition-all cursor-pointer ${errors.file ? 'border-rose-500 bg-rose-500/5' : 'border-border hover:border-primary hover:bg-primary/5'}`}
+              <label
+                className={`flex flex-col items-center justify-center border-2 border-dashed rounded-3xl p-8 text-center transition-all cursor-pointer ${errors.file ? 'border-rose-500 bg-rose-500/5' : 'border-border hover:border-primary hover:bg-primary/5'}`}
               >
                 <div className="bg-primary/10 p-4 rounded-full mb-4">
                   <UploadCloud className="w-8 h-8 text-primary" />
@@ -157,7 +156,7 @@ export default function AssignmentDetailPage() {
                       files?.[0]?.type === "application/pdf" || t("onlyPdfAllowed"),
                   })}
                 />
-                
+
                 {errors.file && (
                   <p className="text-sm font-bold text-rose-500 mt-2 bg-rose-500/10 px-3 py-1 rounded-full">
                     {errors.file.message}
@@ -170,7 +169,7 @@ export default function AssignmentDetailPage() {
                   {serverError}
                 </div>
               )}
-              
+
               <Button
                 type="submit"
                 disabled={submitting}

@@ -222,7 +222,7 @@ export function TracksAnalyticsChart({ tracks }: TracksAnalyticsChartProps) {
                                 strokeWidth={4}
                                 dot={(props: any) => {
                                     const { cx, cy, index } = props;
-                                    if (index === -1) return null;
+                                    if (index === -1) return <></>;
                                     return (
                                         <g key={`dot-${index}`}>
                                             <circle
