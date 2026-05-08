@@ -69,7 +69,10 @@ export default function Footer() {
       {/* Bottom */}
       <div className="border-t border-border mt-6">
         <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground">
-          <span>{t("copyright")}</span>
+          <div className="flex flex-col gap-1">
+            <span>{t("copyright")}</span>
+            <span className="text-xs font-semibold text-primary/80">{t("developer")}</span>
+          </div>
           <div className="flex gap-4 mt-2 md:mt-0">
             <button
               className={
