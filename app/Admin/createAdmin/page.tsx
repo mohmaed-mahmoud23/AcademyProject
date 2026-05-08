@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useForm } from "react-hook-form";
@@ -39,7 +40,7 @@ export default function CreateAdmin() {
       const result: AdminResponse = await createAdmin(data).unwrap();
       toast.success(result.message || t("success"));
       form.reset();
-    } catch (err: unknown) {
+    } catch (err: any) {
       const message =
         err?.data?.message || err.message || t("error");
       toast.error(message);

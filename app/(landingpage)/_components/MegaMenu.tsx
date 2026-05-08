@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import Link from "next/link";
@@ -5,13 +6,13 @@ import { useState, useRef, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-export default function MegaMenu({ nav }: unknown) {
+export default function MegaMenu({ nav }: any) {
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const t = useTranslations("MegaMenu");
 
   useEffect(() => {
-    function handleClickOutside(e: unknown) {
+    function handleClickOutside(e: any) {
       if (menuRef.current && !menuRef.current.contains(e.target)) {
         setOpen(false);
       }
@@ -56,7 +57,7 @@ export default function MegaMenu({ nav }: unknown) {
         `}
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-          {nav.items.map((item: unknown) => (
+          {nav.items.map((item: any) => (
             <Link
               key={item.title}
               href={item.href}

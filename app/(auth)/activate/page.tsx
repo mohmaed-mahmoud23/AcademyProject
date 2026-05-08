@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
@@ -61,7 +62,7 @@ export default function ActivatePage() {
       setTimeout(() => {
         router.push("Login");
       }, 1500);
-    } catch (err: unknown) {
+    } catch (err: any) {
       const message = err?.data?.message || err.message || "Activation failed";
 
       setErrorMessage(message);

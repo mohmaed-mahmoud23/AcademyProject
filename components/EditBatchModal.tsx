@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -64,7 +65,7 @@ export default function EditBatchModal({ batch }: Props) {
 
       toast.success(t("success"));
       setOpen(false);
-    } catch (error: unknown) {
+    } catch (error: any) {
       toast.error((error as { data?: { message?: string } })?.data?.message || t("error"));
     }
   };

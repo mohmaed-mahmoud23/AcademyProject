@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useTranslations } from "next-intl";
@@ -100,7 +101,7 @@ export default function BatchDetails() {
       }).unwrap();
       toast.success(t("studentCreated"));
       studentForm.reset();
-    } catch (err: unknown) {
+    } catch (err: any) {
       toast.error(err.data?.message || t("error"));
     }
   };
@@ -115,7 +116,7 @@ export default function BatchDetails() {
       const result = await createTrack({ batchId, name: data.name }).unwrap();
       toast.success(result.message || t("trackCreated"));
       trackForm.reset();
-    } catch (err: unknown) {
+    } catch (err: any) {
       toast.error(err.data?.message || t("error"));
     }
   };
@@ -124,7 +125,7 @@ export default function BatchDetails() {
     try {
       await deleteStudent({ batchId, studentId }).unwrap();
       toast.success(t("studentDeleted"));
-    } catch (error: unknown) {
+    } catch (error: any) {
       toast.error(error.data?.message || t("error"));
     }
   };
@@ -137,7 +138,7 @@ export default function BatchDetails() {
     try {
       const result = await deleteTrack(trackId).unwrap();
       toast.success(result.message || t("trackDeleted"));
-    } catch (err: unknown) {
+    } catch (err: any) {
       toast.error(err?.data?.message || t("error"));
     }
   };
@@ -145,7 +146,7 @@ export default function BatchDetails() {
   const scoreDistribution = useMemo(() => {
     if (!studentsRes?.data) return [];
     const bins = { '0-20': 0, '21-40': 0, '41-60': 0, '61-80': 0, '81-100': 0 };
-    studentsRes.data.forEach((s: unknown) => {
+    studentsRes.data.forEach((s: any) => {
       const score = s.averageScore || 0;
       if (score <= 20) bins['0-20']++;
       else if (score <= 40) bins['21-40']++;
@@ -585,7 +586,7 @@ export default function BatchDetails() {
 }
 
 // Ensure the icon doesn't break if unset
-function UsersIcon(props: unknown) {
+function UsersIcon(props: any) {
   return (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" />

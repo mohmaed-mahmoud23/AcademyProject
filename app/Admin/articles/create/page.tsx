@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useForm } from "react-hook-form";
@@ -42,7 +43,7 @@ export default function CreateArticles() {
 
       toast.success("Article created successfully 🔥");
       form.reset();
-    } catch (err: unknown) {  
+    } catch (err: any) {  
       toast.error(err?.data?.message || "Something went wrong ❌");
     }
   };

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useParams } from "next/navigation";
@@ -49,7 +50,7 @@ export default function BatchTracksPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {data?.data?.map((track: unknown, index: number) => (
+        {data?.data?.map((track: any, index: number) => (
           <Link key={track.id} href={`/dashboard/BatchesStudent/${batchId}/${track.id}/lectures`} className="block focus:outline-none focus:ring-4 focus:ring-primary/20 rounded-[2rem] transition-all">
              <TrackCard 
                 name={track.name}

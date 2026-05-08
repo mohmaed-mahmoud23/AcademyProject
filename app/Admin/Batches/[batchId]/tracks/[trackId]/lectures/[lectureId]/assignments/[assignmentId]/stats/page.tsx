@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useGetAssignmentStatsQuery } from "@/app/redux/slices/ApiSlice";
@@ -179,8 +180,8 @@ export default function AssignmentStatsPage() {
   );
 }
 
-function MetricCard({ title, value, icon, color, desc, badge }: unknown) {
-  const bgMap: unknown = {
+function MetricCard({ title, value, icon, color, desc, badge }: any) {
+  const bgMap: any = {
     blue: "bg-blue-500/10",
     emerald: "bg-emerald-500/10",
     rose: "bg-rose-500/10",

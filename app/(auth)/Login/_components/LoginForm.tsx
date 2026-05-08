@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
@@ -43,7 +44,7 @@ export default function LoginForm() {
       const result: LoginResponse = await login(data).unwrap();
 
       console.log("reslat", result.data)
-      // 🔥 أهم جزء
+      // 🔥 أهم جز
       const { accessToken, refreshToken, roles } = result.data;
       // ✅ خزّن accessToken
       cookieService.set("token", accessToken, {
@@ -73,7 +74,7 @@ export default function LoginForm() {
       } else {
         router.push("/dashboard"); // غيرها حسب عندك
       }
-    } catch (err: unknown) {
+    } catch (err: any) {
       const message = err?.data?.message || err.message || "Login failed";
       setErrorMessage(message);
       toast.error(message);

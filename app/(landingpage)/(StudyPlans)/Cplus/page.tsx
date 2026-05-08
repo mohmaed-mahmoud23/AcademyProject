@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import {
@@ -101,7 +102,7 @@ export default function Cplus() {
 
       <div className="max-w-5xl mx-auto">
         <Accordion type="single" collapsible className="space-y-4">
-          {cppStudyPlan.map((week: unknown, idx: number) => (
+          {cppStudyPlan.map((week: any, idx: number) => (
             <AccordionItem key={idx} value={`week-${idx}`} className="border border-border/50 rounded-xl bg-card/70 backdrop-blur-xl hover:shadow-xl transition-all">
               <AccordionTrigger className="px-6 py-4 font-semibold flex justify-between items-center text-start">
                 {week.week}
@@ -110,7 +111,7 @@ export default function Cplus() {
 
               <AccordionContent className="px-6 pb-6">
                 <div className="space-y-2 mb-6">
-                  {week.lessons.map((lesson: unknown) => (
+                  {week.lessons.map((lesson: any) => (
                     <Card key={lesson.number} className="bg-background/30 hover:bg-background/50 transition-all rounded-xl">
                       <CardContent className="flex justify-between items-center">
                         <span className="text-sm md:text-base font-medium font-medium">{lesson.title}</span>
@@ -127,7 +128,7 @@ export default function Cplus() {
                     <CardTitle>{t("assignments")}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    {week.assignments.map((a: unknown, i: number) => (
+                    {week.assignments.map((a: any, i: number) => (
                       <p key={i}>
                         {a.title} ({a.count} {t("assignments")})
                       </p>

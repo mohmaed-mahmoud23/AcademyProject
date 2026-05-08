@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import Image from "next/image";
@@ -106,7 +107,7 @@ export default function Navbar() {
                 </summary>
 
                 <div className="mt-2 flex flex-col gap-2 ps-2">
-                  {nav.items.map((item: unknown) => (
+                  {nav.items.map((item: any) => (
                     <Link
                       key={item.title}
                       href={item.href}

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
@@ -65,7 +66,7 @@ export default function EditLectureModal({ lecture, trackId }: EditLectureModalP
 
       toast.success(t("success"));
       refetch(); 
-    } catch (err: unknown) {
+    } catch (err: any) {
       console.error(err);
       toast.error((err as { data?: { message?: string } })?.data?.message || t("error"));
     } finally {

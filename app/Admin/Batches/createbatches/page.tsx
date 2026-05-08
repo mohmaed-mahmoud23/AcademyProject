@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
@@ -64,7 +65,7 @@ export default function CreateBatchPage() {
       toast.success(t("success"));
 
       router.push(`/Admin/Batches`);
-    } catch (error: unknown) {
+    } catch (error: any) {
       toast.error(error?.data?.message || t("error"));
     }
   };

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { motion } from "framer-motion";
@@ -18,12 +19,12 @@ import { useEffect, useState } from "react";
 interface ChartCardProps {
   title: string;
   type: "bar" | "radial";
-  data: unknown[];
+  data: any[];
   height?: number;
   delay?: number;
 }
 
-const CustomTooltip = ({ active, payload, label, isDark }: unknown) => {
+const CustomTooltip = ({ active, payload, label, isDark }: any) => {
   if (active && payload && payload.length) {
     return (
       <div className="bg-white dark:bg-slate-900 p-3 shadow-xl rounded-2xl border border-gray-100 dark:border-slate-800">

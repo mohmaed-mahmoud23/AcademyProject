@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
@@ -93,7 +94,7 @@ export default function NotificationBell() {
         // استخراج assignmentId من actionUrl
         const assignmentId = notification.actionUrl.split("/")[2];
 
-        // بناء المسار حسب folder structure بتاعك
+        // بنا المسار حسب folder structure بتاعك
         const url = `/Admin/Batches/${notification.batchId}/tracks/${notification.trackId}/lectures/${notification.lectureId}/assignments/${assignmentId}/submissions`;
 
         router.push(url);

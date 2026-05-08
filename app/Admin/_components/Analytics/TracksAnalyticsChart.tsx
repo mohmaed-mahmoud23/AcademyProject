@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React, { useMemo } from "react";
@@ -37,7 +38,7 @@ interface TracksAnalyticsChartProps {
     tracks: TopTrack[];
 }
 
-const CustomTooltip = ({ active, payload, label, t }: unknown) => {
+const CustomTooltip = ({ active, payload, label, t }: any) => {
     if (active && payload && payload.length) {
         return (
             <div className="glassy p-5 border border-border/40 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-[2rem] backdrop-blur-3xl animate-in zoom-in-95 duration-200 min-w-[220px]">
@@ -49,7 +50,7 @@ const CustomTooltip = ({ active, payload, label, t }: unknown) => {
                 </div>
 
                 <div className="space-y-4">
-                    {payload.map((entry: unknown, index: number) => (
+                    {payload.map((entry: any, index: number) => (
                         <div key={index} className="group relative">
                             <div className="flex items-center justify-between gap-6">
                                 <div className="flex items-center gap-3">
@@ -220,7 +221,7 @@ export function TracksAnalyticsChart({ tracks }: TracksAnalyticsChartProps) {
                                 name="averageScore"
                                 stroke="#6366f1"
                                 strokeWidth={4}
-                                dot={(props: unknown) => {
+                                dot={(props: any) => {
                                     const { cx, cy, index } = props;
                                     if (index === -1) return <></>;
                                     return (

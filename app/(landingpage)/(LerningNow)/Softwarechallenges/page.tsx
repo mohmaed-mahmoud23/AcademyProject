@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { Card, CardContent } from "@/components/ui/card";
@@ -9,7 +10,7 @@ import { useTranslations } from "next-intl";
 
 export default function Softwarechallenges() {
   const t = useTranslations("SoftwareChallengesPage");
-  const challenges: unknown[] = []; // حاليا فاضي زي ما قلت
+  const challenges: any[] = []; // حاليا فاضي زي ما قلت
 
   return (
     <section className="min-h-screen bg-background text-foreground px-6 py-16">

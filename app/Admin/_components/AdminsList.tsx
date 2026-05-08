@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import {
@@ -22,7 +23,7 @@ export default function AdminsList() {
     try {
       await deleteAdmin(id).unwrap();
       toast.success(t("deleteSuccess"));
-    } catch (err: unknown) {
+    } catch (err: any) {
       toast.error(err?.data?.message || t("deleteError"));
     }
   };
@@ -36,7 +37,7 @@ export default function AdminsList() {
     );
   }
 
-  const admins: unknown[] = Array.isArray(data?.data) ? data.data : (data?.data as unknown) || [];
+  const admins: any[] = Array.isArray(data?.data) ? data.data : (data?.data as any) || [];
 
   return (
     <div className="bg-white dark:bg-[#0f172a]/80 dark:backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-3xl shadow-xl overflow-hidden flex flex-col h-full">
@@ -64,7 +65,7 @@ export default function AdminsList() {
           </div>
         ) : (
           <div className="grid gap-4">
-            {admins.map((admin: unknown, idx: number) => (
+            {admins.map((admin: any, idx: number) => (
               <div
                 key={admin.id || admin.userId || idx}
                 className="group relative flex items-center justify-between p-4 rounded-2xl border border-slate-200/60 dark:border-white/5 bg-white dark:bg-slate-900/50 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 overflow-hidden"

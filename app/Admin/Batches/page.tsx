@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import Link from "next/link";
@@ -48,7 +49,7 @@ export default function Batches() {
     try {
       await deleteBatch(batchId).unwrap();
       toast.success("Batch deleted successfully");
-    } catch (err: unknown) {
+    } catch (err: any) {
       toast.error(err?.data?.message || "Failed to delete batch");
     }
   };

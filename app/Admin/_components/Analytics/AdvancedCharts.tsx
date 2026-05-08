@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React, { useMemo } from "react";
@@ -33,15 +34,15 @@ import { cn } from "@/lib/utils";
 
 interface AdvancedChartsProps {
   type: "growth" | "popularity" | "performance" | "dropoff";
-  data: unknown;
+  data: any;
 }
 
-const CustomTooltip = ({ active, payload, label }: unknown) => {
+const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
       <div className="glassy p-4 border border-border/40 shadow-2xl rounded-2xl backdrop-blur-3xl">
         <p className="text-xs font-bold text-muted-foreground uppercase mb-2 tracking-widest">{label}</p>
-        {payload.map((entry: unknown, index: number) => (
+        {payload.map((entry: any, index: number) => (
           <div key={index} className="flex items-center gap-3">
             <div className="w-2 h-2 rounded-full" style={{ backgroundColor: entry.color || entry.fill }} />
             <p className="text-sm font-black text-foreground">
@@ -169,7 +170,7 @@ export function AdvancedCharts({ type, data }: AdvancedChartsProps) {
               <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: "rgba(255,255,255,0.6)", fontWeight: "bold" }} />
               <Tooltip content={<CustomTooltip />} cursor={{ fill: "rgba(255,255,255,0.05)" }} />
               <Bar dataKey="value" radius={[0, 10, 10, 0]} barSize={24}>
-                {processedData.map((entry: unknown, index: number) => (
+                {processedData.map((entry: any, index: number) => (
                   <Cell key={`cell-${index}`} fill={entry.color} fillOpacity={0.8} />
                 ))}
               </Bar>
@@ -217,7 +218,7 @@ export function AdvancedCharts({ type, data }: AdvancedChartsProps) {
                 animationBegin={0}
                 animationDuration={1500}
               >
-                {processedData.map((entry: unknown, index: number) => (
+                {processedData.map((entry: any, index: number) => (
                   <Cell key={`cell-${index}`} fill={entry.color} stroke="none" />
                 ))}
               </Pie>

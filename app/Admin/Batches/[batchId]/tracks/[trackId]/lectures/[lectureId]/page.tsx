@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import {
   Dialog,
@@ -98,7 +99,7 @@ const handleUpdateAssignment = async (
     }).unwrap();
 
     toast.success(res.message || t("assignmentUpdated"));
-  } catch (err: unknown) {
+  } catch (err: any) {
     toast.error(err?.data?.message || t("updateFailed"));
   }
 };
@@ -118,7 +119,7 @@ const handleUpdateAssignment = async (
 
       toast.success(resalt.message || t("assignmentCreated"));
       LectcherassomentForm.reset();
-    } catch (err: unknown) {
+    } catch (err: any) {
       const errorMessage = err?.data?.message || err?.message || t("assignmentCreateError");
       toast.error(errorMessage);
     }

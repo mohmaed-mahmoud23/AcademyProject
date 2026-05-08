@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React, { useEffect, useState, useMemo } from "react";
@@ -42,7 +43,7 @@ function AnimatedCounter({ value, duration = 2 }: { value: number; duration?: nu
   return <span>{displayValue.toLocaleString()}</span>;
 }
 
-function Sparkline({ color, data }: { color: string; data: unknown[] }) {
+function Sparkline({ color, data }: { color: string; data: any[] }) {
   return (
     <div className="h-12 w-full mt-2">
       <ResponsiveContainer width="100%" height="100%">

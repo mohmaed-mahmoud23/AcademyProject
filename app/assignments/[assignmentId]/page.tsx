@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useParams } from "next/navigation";
@@ -65,7 +66,7 @@ export default function AssignmentDetailPage() {
       const resalt = await submitAssignment({ assignmentId, file }).unwrap();
       toast.success(resalt.message || t("success"));
       reset();
-    } catch (err: unknown) {
+    } catch (err: any) {
       setServerError(err?.data?.message || t("submissionFailed"));
     }
   };

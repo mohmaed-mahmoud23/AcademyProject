@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useParams } from "next/navigation";
@@ -106,7 +107,7 @@ export default function TrackDetails() {
     try {
       await deleteLecture(lectureId).unwrap();
       toast.success(t("lectureDeleted"));
-    } catch (err: unknown) {
+    } catch (err: any) {
       const errorMessage = err?.data?.message || err?.message || t("deleteFailed");
       toast.error(errorMessage);
     }

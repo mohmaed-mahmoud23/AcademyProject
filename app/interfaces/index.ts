@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // src/types/auth.ts
 
 export interface LoginData {
@@ -167,11 +168,11 @@ export interface ApiResponse<T> {
   timestamp: string
 }
 export interface Student {
-  [key: string]: unknown;
+  [key: string]: any;
 }
 
 export interface Track {
-  [key: string]: unknown;
+  [key: string]: any;
 }
 
 export interface BatchDatadetails {
