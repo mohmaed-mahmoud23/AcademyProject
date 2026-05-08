@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { User, Mail, ShieldCheck, Phone } from "lucide-react";
+import { Mail, ShieldCheck, Phone } from "lucide-react";
 import Image from "next/image";
 
 interface ProfileCardProps {

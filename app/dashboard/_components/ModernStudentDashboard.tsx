@@ -9,13 +9,11 @@ import {
   GraduationCap,
   Star,
   MessageSquare,
-  Sparkles,
-  ChevronRight
+  Sparkles
 } from "lucide-react";
 import { StatCard } from "./StatCard";
 import { ProfileCard } from "./ProfileCard";
 import { ChartCard } from "./ChartCard";
-import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import { useGetMeQuery } from "@/app/redux/slices/ApiSlice";
 
@@ -123,7 +121,7 @@ export function ModernStudentDashboard({ data }: ModernStudentDashboardProps) {
 
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {stats.map((stat, idx) => (
-          <StatCard key={idx} {...(stat as any)} delay={idx * 0.1} />
+          <StatCard key={idx} title={stat.title} value={stat.value} icon={stat.icon} color={stat.color as "blue" | "green" | "yellow"} delay={idx * 0.1} />
         ))}
       </section>
 
@@ -233,7 +231,7 @@ export function ModernStudentDashboard({ data }: ModernStudentDashboardProps) {
                     <div className="relative">
                       <div className="absolute start-0 top-0 bottom-0 w-1 bg-purple-200 dark:bg-purple-900/50 rounded-full" />
                       <p className="text-sm text-muted-foreground leading-relaxed ps-4 italic">
-                        "{grade.feedback}"
+                        &quot;{grade.feedback}&quot;
                       </p>
                     </div>
                   )}

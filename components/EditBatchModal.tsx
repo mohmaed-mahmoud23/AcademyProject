@@ -64,8 +64,8 @@ export default function EditBatchModal({ batch }: Props) {
 
       toast.success(t("success"));
       setOpen(false);
-    } catch (error: any) {
-      toast.error(error?.data?.message || t("error"));
+    } catch (error: unknown) {
+      toast.error((error as { data?: { message?: string } })?.data?.message || t("error"));
     }
   };
 

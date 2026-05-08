@@ -54,7 +54,7 @@ export default function LectureIdPage() {
   const [postAssignment] = usePostAssignmentMutation();
   const [updateAssignment, { isLoading: isUpdating }] = useUpdateAssignmentMutation();
   const router = useRouter();
-  
+
   const { batchId, trackId, lectureId } = useParams() as {
     batchId: string;
     trackId: string;

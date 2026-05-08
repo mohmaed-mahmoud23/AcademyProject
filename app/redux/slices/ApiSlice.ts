@@ -6,7 +6,6 @@ import {
   AssignmentDetailsResponse,
   AssignmentResponse,
   AssignmentStatsResponse,
-  AssignmentSubmission,
   AssignmentSubmissionsResponse,
   BatchesData,
   BatchResponse,
@@ -43,14 +42,16 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
+import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from "@reduxjs/toolkit/query";
+
+const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
 
   if (result.error && result.error.status === 401) {
     const refreshToken = CookieService.get("refreshToken");
 
     if (refreshToken) {
-      const refreshResult: any = await baseQuery(
+      const refreshResult = await baseQuery(
         {
           url: "/auth/refresh-token",
           method: "POST",
@@ -61,7 +62,8 @@ const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
       );
 
       if (refreshResult.data) {
-        CookieService.set("token", refreshResult.data.accessToken, {
+        const data = refreshResult.data as { accessToken: string };
+        CookieService.set("token", data.accessToken, {
           path: "/",
           maxAge: 60 * 60 * 24,
           sameSite: "strict",
@@ -192,7 +194,7 @@ export const ApiSlice = createApi({
       invalidatesTags: ["BatchStudents", "Dashboard"], // 🔥 Dashboard refresh
     }),
 
-    deleteStudent: builder.mutation<any, { batchId: string; studentId: string }>({
+    deleteStudent: builder.mutation<ApiResponse<unknown>, { batchId: string; studentId: string }>({
       query: ({ batchId, studentId }) => ({
         url: `batches/${batchId}/students/${studentId}`,
         method: "DELETE",
@@ -283,7 +285,7 @@ export const ApiSlice = createApi({
 
 
     postAssignment: builder.mutation<
-      ApiResponse<any>,
+      ApiResponse<unknown>,
       {
         lectureId: string;
         title: string;
@@ -314,7 +316,7 @@ export const ApiSlice = createApi({
       invalidatesTags: ["Assignment", "Lecture", "Dashboard"], // 🔥 refresh تلقائي
     }),
 
-    closeAssignment: builder.mutation<ApiResponse<any>, string>({
+    closeAssignment: builder.mutation<ApiResponse<unknown>, string>({
       query: (assignmentId) => ({ url: `assignments/${assignmentId}/close`, method: "POST" }),
       invalidatesTags: ["Assignment", "Lecture", "Dashboard"]
     }),
@@ -330,7 +332,7 @@ export const ApiSlice = createApi({
     }),
 
     gradeSubmission: builder.mutation<
-      ApiResponse<any>,
+      ApiResponse<unknown>,
       { submissionId: string; score: number; feedback: string }
     >({
       query: ({ submissionId, score, feedback }) => ({
@@ -380,7 +382,7 @@ export const ApiSlice = createApi({
       providesTags: ["Dashboard"], // ✅ Dashboard refresh عند أي invalidation
     }),
 
-    submitAssignmentstudentsub: builder.mutation<ApiResponse<any>, { assignmentId: string; file: File }>({
+    submitAssignmentstudentsub: builder.mutation<ApiResponse<unknown>, { assignmentId: string; file: File }>({
       query: ({ assignmentId, file }) => {
         const formData = new FormData();
         formData.append("file", file);
@@ -402,7 +404,7 @@ export const ApiSlice = createApi({
       }),
       invalidatesTags: ["Track", "Dashboard"],
     }),
-    getNotifications: builder.query<any, void>({ query: () => "/notifications" }),
+    getNotifications: builder.query<{ data?: { items?: unknown[] } }, void>({ query: () => "/notifications" }),
 
     getUnreadCount: builder.query<number, void>({ query: () => "/notifications/unread-count" }),
     deleteBatch: builder.mutation<ApiResponse<string>, string>({

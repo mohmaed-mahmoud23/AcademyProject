@@ -65,9 +65,9 @@ export default function EditLectureModal({ lecture, trackId }: EditLectureModalP
 
       toast.success(t("success"));
       refetch(); 
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err);
-      toast.error(err?.data?.message || t("error"));
+      toast.error((err as { data?: { message?: string } })?.data?.message || t("error"));
     } finally {
       setIsSubmitting(false);
     }

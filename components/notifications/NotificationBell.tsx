@@ -31,12 +31,28 @@ import {
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
+interface AppNotification {
+  id: string;
+  title?: string;
+  message?: string;
+  type?: string;
+  createdAt: string;
+  isRead: boolean;
+  actionUrl?: string;
+  batchId?: string;
+  trackId?: string;
+  lectureId?: string;
+  metadata?: string | Record<string, unknown>;
+  lectureTitle?: string;
+  trackTitle?: string;
+}
+
 export default function NotificationBell() {
   const t = useTranslations("NotificationBell");
   const { data, isLoading } = useGetNotificationsQuery();
   const router = useRouter();
 
-  const [notifications, setNotifications] = useState<Record<string, any>[]>([]);
+  const [notifications, setNotifications] = useState<AppNotification[]>([]);
   const { data: userData } = useGetMeQuery();
   const role = userData?.roles?.[0] || "Student";
 
@@ -45,7 +61,7 @@ export default function NotificationBell() {
 
   useEffect(() => {
     if (data?.data?.items) {
-      setNotifications(data.data.items);
+      setNotifications(data.data.items as AppNotification[]);
     }
   }, [data]);
 
@@ -69,7 +85,7 @@ export default function NotificationBell() {
   );
 
   // mark single notification
-  const markAsRead = async (notification: Record<string, any>) => {
+  const markAsRead = async (notification: AppNotification) => {
     console.log("nit", notification);
 
     try {
@@ -121,9 +137,9 @@ export default function NotificationBell() {
   };
 
   const renderNotification = useCallback(
-    (notification: Record<string, any>) => {
-      let title = notification.title;
-      let message = notification.message;
+    (notification: AppNotification) => {
+      let title = notification.title || "";
+      let message = notification.message || "";
 
       if (role === "Student") {
         return { title, message };
@@ -131,12 +147,13 @@ export default function NotificationBell() {
 
       const normTitle = (notification.title || "").toLowerCase();
 
-      const deepSearch = (obj: Record<string, any>, target: string): unknown => {
+      const deepSearch = (obj: Record<string, unknown> | null, target: string): unknown => {
         if (!obj || typeof obj !== "object") return null;
         for (const key in obj) {
           if (key.toLowerCase().includes(target.toLowerCase())) return obj[key];
-          if (typeof obj[key] === "object") {
-            const found = deepSearch(obj[key], target);
+          const val = obj[key];
+          if (typeof val === "object" && val !== null) {
+            const found = deepSearch(val as Record<string, unknown>, target);
             if (found) return found;
           }
         }
@@ -148,12 +165,12 @@ export default function NotificationBell() {
         const metadata =
           typeof notification.metadata === "string"
             ? JSON.parse(notification.metadata)
-            : notification.metadata || {};
+            : (notification.metadata as Record<string, unknown> | undefined) || {};
 
         metadataTitle =
           deepSearch(metadata, "title") ||
           deepSearch(metadata, "name") ||
-          notification.lectureTitle ||
+          notification.lectureTitle ||  
           notification.trackTitle;
 
         if (
@@ -180,12 +197,12 @@ export default function NotificationBell() {
           message.match(/lecture\s+([^\s,]+)/i) ||
           message.match(/محاضرة\s+(['"«»“”]?)(.+)\1/);
 
-        let resolvedTitle = metadataTitle || titleMatch?.[1] || titleMatch?.[2];
+        let resolvedTitle = (metadataTitle || titleMatch?.[1] || titleMatch?.[2]) as string | null;
 
         if (!resolvedTitle) {
           resolvedTitle =
-            deepSearch(notification.metadata, "lecture") ||
-            deepSearch(notification.metadata, "track");
+            (deepSearch(notification.metadata as Record<string, unknown>, "lecture") as string | null) ||
+            (deepSearch(notification.metadata as Record<string, unknown>, "track") as string | null);
         }
 
         if (
@@ -206,19 +223,19 @@ export default function NotificationBell() {
         title = t("assignmentGradedTitle");
 
         const metadataScore =
-          deepSearch(notification.metadata, "score") ||
+          deepSearch(notification.metadata as Record<string, unknown>, "score") ||
           message.match(/Score:\s*(\d+)/i)?.[1] ||
           "0";
 
         const resolvedTitle =
-          metadataTitle ||
+          (metadataTitle as string | null) ||
           message.match(/submission for\s+([^,.]+)/i)?.[1] ||
           message.match(/لـ\s+([^,.]+)/)?.[1] ||
           "";
 
         message = t("assignmentGradedMessage", {
-          title: resolvedTitle.trim(),
-          score: metadataScore,
+          title: typeof resolvedTitle === "string" ? resolvedTitle.trim() : "",
+          score: String(metadataScore),
         });
       }
 

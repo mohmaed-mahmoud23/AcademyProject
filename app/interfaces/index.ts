@@ -49,7 +49,7 @@ export interface CreateStudentResponse {
   message: string;
   isSuccess: boolean;
   statusCode: number;
-  errors: any[]; // لو عندك نوع محدد للأيرور ممكن تحدده بدل any
+  errors: string[]; // لو عندك نوع محدد للأيرور ممكن تحدده بدل any
   timestamp: string; // ISO string
 }
 
@@ -73,7 +73,7 @@ export interface ActivateStudentResponse {
   message: string;
   isSuccess: boolean;
   statusCode: number;
-  errors: any[]; // ممكن تحدد النوع لو عارف شكل الـ errors
+  errors: string[]; // ممكن تحدد النوع لو عارف شكل الـ errors
   timestamp: string; // ISO string
 }
 
@@ -167,11 +167,11 @@ export interface ApiResponse<T> {
   timestamp: string
 }
 export interface Student {
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface Track {
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface BatchDatadetails {
@@ -629,6 +629,6 @@ export interface DashboardResponse {
   message: string;
   isSuccess: boolean;
   statusCode: number;
-  errors: any[];
+  errors: string[];
   timestamp: string;
 }
