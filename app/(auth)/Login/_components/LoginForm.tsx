@@ -73,7 +73,7 @@ export default function LoginForm() {
       } else {
         router.push("/dashboard"); // غيرها حسب عندك
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       const message = err?.data?.message || err.message || "Login failed";
       setErrorMessage(message);
       toast.error(message);

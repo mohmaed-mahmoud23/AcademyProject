@@ -179,8 +179,8 @@ export default function AssignmentStatsPage() {
   );
 }
 
-function MetricCard({ title, value, icon, color, desc, badge }: any) {
-  const bgMap: any = {
+function MetricCard({ title, value, icon, color, desc, badge }: unknown) {
+  const bgMap: unknown = {
     blue: "bg-blue-500/10",
     emerald: "bg-emerald-500/10",
     rose: "bg-rose-500/10",

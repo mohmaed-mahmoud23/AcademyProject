@@ -39,7 +39,7 @@ interface AnalyticsChartsProps {
   trend?: { date: string; count: number }[];
 }
 
-const CustomTooltip = ({ active, payload, label }: any) => {
+const CustomTooltip = ({ active, payload, label }: unknown) => {
   if (active && payload && payload.length) {
     return (
       <div className="glassy p-6 border border-border/40 shadow-2xl rounded-3xl backdrop-blur-3xl animate-in zoom-in-95 duration-200">
@@ -47,7 +47,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
           {label}
         </p>
         <div className="space-y-3">
-          {payload.map((entry: any, index: number) => (
+          {payload.map((entry: unknown, index: number) => (
             <div key={index} className="flex items-center gap-4">
               <div className="w-2.5 h-2.5 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.2)]" style={{ backgroundColor: entry.color || entry.fill }} />
               <div className="flex flex-col">
@@ -147,7 +147,7 @@ export function AnalyticsCharts({ tracks, type, trend = [] }: AnalyticsChartsPro
               />
               <Tooltip content={<CustomTooltip />} cursor={{ fill: "rgba(255,255,255,0.03)" }} />
               <Bar dataKey={key} radius={[0, 15, 15, 0]} barSize={24}>
-                {chartData.map((_entry: any, index: number) => (
+                {chartData.map((_entry: unknown, index: number) => (
                   <Cell key={`cell-${index}`} fill={`url(#gradient-${type})`} fillOpacity={0.9} />
                 ))}
               </Bar>

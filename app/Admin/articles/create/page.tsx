@@ -42,7 +42,7 @@ export default function CreateArticles() {
 
       toast.success("Article created successfully 🔥");
       form.reset();
-    } catch (err: any) {  
+    } catch (err: unknown) {  
       toast.error(err?.data?.message || "Something went wrong ❌");
     }
   };

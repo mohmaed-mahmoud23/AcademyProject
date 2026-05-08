@@ -61,7 +61,7 @@ export default function ActivatePage() {
       setTimeout(() => {
         router.push("Login");
       }, 1500);
-    } catch (err: any) {
+    } catch (err: unknown) {
       const message = err?.data?.message || err.message || "Activation failed";
 
       setErrorMessage(message);

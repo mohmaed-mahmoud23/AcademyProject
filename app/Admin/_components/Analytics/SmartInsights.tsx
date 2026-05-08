@@ -91,7 +91,7 @@ export function SmartInsights({ data }: SmartInsightsProps) {
     return results;
   }, [data, t]);
 
-  const colorConfig: Record<string, any> = {
+  const colorConfig: Record<string, string> = {
     rose: "text-rose-500 bg-rose-500/10 border-rose-500/20",
     emerald: "text-emerald-500 bg-emerald-500/10 border-emerald-500/20",
     blue: "text-blue-500 bg-blue-500/10 border-blue-500/20",

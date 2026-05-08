@@ -98,7 +98,7 @@ const handleUpdateAssignment = async (
     }).unwrap();
 
     toast.success(res.message || t("assignmentUpdated"));
-  } catch (err: any) {
+  } catch (err: unknown) {
     toast.error(err?.data?.message || t("updateFailed"));
   }
 };
@@ -118,7 +118,7 @@ const handleUpdateAssignment = async (
 
       toast.success(resalt.message || t("assignmentCreated"));
       LectcherassomentForm.reset();
-    } catch (err: any) {
+    } catch (err: unknown) {
       const errorMessage = err?.data?.message || err?.message || t("assignmentCreateError");
       toast.error(errorMessage);
     }

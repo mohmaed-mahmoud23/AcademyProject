@@ -5,13 +5,13 @@ import { useState, useRef, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-export default function MegaMenu({ nav }: any) {
+export default function MegaMenu({ nav }: unknown) {
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const t = useTranslations("MegaMenu");
 
   useEffect(() => {
-    function handleClickOutside(e: any) {
+    function handleClickOutside(e: unknown) {
       if (menuRef.current && !menuRef.current.contains(e.target)) {
         setOpen(false);
       }
@@ -56,7 +56,7 @@ export default function MegaMenu({ nav }: any) {
         `}
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-          {nav.items.map((item: any) => (
+          {nav.items.map((item: unknown) => (
             <Link
               key={item.title}
               href={item.href}

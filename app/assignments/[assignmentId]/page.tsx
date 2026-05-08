@@ -65,7 +65,7 @@ export default function AssignmentDetailPage() {
       const resalt = await submitAssignment({ assignmentId, file }).unwrap();
       toast.success(resalt.message || t("success"));
       reset();
-    } catch (err: any) {
+    } catch (err: unknown) {
       setServerError(err?.data?.message || t("submissionFailed"));
     }
   };

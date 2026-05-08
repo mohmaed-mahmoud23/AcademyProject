@@ -106,7 +106,7 @@ export default function TrackDetails() {
     try {
       await deleteLecture(lectureId).unwrap();
       toast.success(t("lectureDeleted"));
-    } catch (err: any) {
+    } catch (err: unknown) {
       const errorMessage = err?.data?.message || err?.message || t("deleteFailed");
       toast.error(errorMessage);
     }

@@ -68,7 +68,7 @@ export default function SubmissionsPage() {
         feedback: data.feedback,
       }).unwrap();
       toast.success(res.message);
-    } catch (err: any) {
+    } catch (err: unknown) {
       const message = err?.data?.message || err?.error || t("failedToGrade");
       toast.error(message);
     }
@@ -80,7 +80,7 @@ export default function SubmissionsPage() {
 
   const stats = useMemo(() => {
     const total = submissions.length;
-    const graded = submissions.filter((s: any) => s.isFinalized).length;
+    const graded = submissions.filter((s: unknown) => s.isFinalized).length;
     const pending = total - graded;
     return { total, graded, pending };
   }, [submissions]);
@@ -164,7 +164,7 @@ export default function SubmissionsPage() {
         <ScrollArea className="h-[600px] rounded-3xl border border-border/40 bg-card/20 backdrop-blur-xl p-4 md:p-6 shadow-inner">
           <div className="space-y-4">
             {submissions.length ? (
-              submissions.map((submission: any) => (
+              submissions.map((submission: unknown) => (
                 <div
                   key={submission.submissionId}
                   className="flex flex-col md:flex-row md:items-center justify-between p-5 bg-card border border-border/50 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 group"

@@ -39,7 +39,7 @@ export default function CreateAdmin() {
       const result: AdminResponse = await createAdmin(data).unwrap();
       toast.success(result.message || t("success"));
       form.reset();
-    } catch (err: any) {
+    } catch (err: unknown) {
       const message =
         err?.data?.message || err.message || t("error");
       toast.error(message);

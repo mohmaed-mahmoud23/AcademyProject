@@ -48,7 +48,7 @@ export default function Batches() {
     try {
       await deleteBatch(batchId).unwrap();
       toast.success("Batch deleted successfully");
-    } catch (err: any) {
+    } catch (err: unknown) {
       toast.error(err?.data?.message || "Failed to delete batch");
     }
   };

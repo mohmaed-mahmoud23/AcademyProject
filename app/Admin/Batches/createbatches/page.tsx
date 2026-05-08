@@ -64,7 +64,7 @@ export default function CreateBatchPage() {
       toast.success(t("success"));
 
       router.push(`/Admin/Batches`);
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast.error(error?.data?.message || t("error"));
     }
   };

@@ -28,7 +28,7 @@ export default function PagesIndex() {
                         ⚠️
                     </div>
                     <h2 className="text-xl font-bold text-gray-900">{t("error")}</h2>
-                    <p className="text-gray-500 text-sm">We couldn't load your dashboard data. Please try again later.</p>
+                    <p className="text-gray-500 text-sm">We couldn&apos;t load your dashboard data. Please try again later.</p>
                     <button
                         onClick={() => window.location.reload()}
                         className="px-6 py-2 bg-red-500 text-white rounded-xl font-semibold hover:bg-red-600 transition-colors"
