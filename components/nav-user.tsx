@@ -40,7 +40,7 @@ export function NavUser() {
     try {
       await logout().unwrap();
       toast.success("logout success");
-    } catch (err) {
+    } catch {
       console.log("API logout failed");
     }
 

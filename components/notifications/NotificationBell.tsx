@@ -11,7 +11,7 @@ import {
   AlertTriangle,
   Info,
 } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -36,7 +36,7 @@ export default function NotificationBell() {
   const { data, isLoading } = useGetNotificationsQuery();
   const router = useRouter();
 
-  const [notifications, setNotifications] = useState<any[]>([]);
+  const [notifications, setNotifications] = useState<Record<string, any>[]>([]);
   const { data: userData } = useGetMeQuery();
   const role = userData?.roles?.[0] || "Student";
 
@@ -69,7 +69,7 @@ export default function NotificationBell() {
   );
 
   // mark single notification
-  const markAsRead = async (notification: any) => {
+  const markAsRead = async (notification: Record<string, any>) => {
     console.log("nit", notification);
 
     try {
@@ -121,7 +121,7 @@ export default function NotificationBell() {
   };
 
   const renderNotification = useCallback(
-    (notification: any) => {
+    (notification: Record<string, any>) => {
       let title = notification.title;
       let message = notification.message;
 
@@ -131,7 +131,7 @@ export default function NotificationBell() {
 
       const normTitle = (notification.title || "").toLowerCase();
 
-      const deepSearch = (obj: any, target: string): any => {
+      const deepSearch = (obj: Record<string, any>, target: string): unknown => {
         if (!obj || typeof obj !== "object") return null;
         for (const key in obj) {
           if (key.toLowerCase().includes(target.toLowerCase())) return obj[key];
@@ -164,7 +164,7 @@ export default function NotificationBell() {
         ) {
           metadataTitle = null;
         }
-      } catch (e) { }
+      } catch { }
 
       if (
         normTitle.includes("new lecture") ||
@@ -224,7 +224,7 @@ export default function NotificationBell() {
 
       return { title, message };
     },
-    [t],
+    [t, role],
   );
 
   return (
@@ -293,7 +293,7 @@ export default function NotificationBell() {
                   {t("noNotifications")}
                 </p>
                 <p className="text-xs font-medium text-muted-foreground/50">
-                  You're all caught up!
+                  You&apos;re all caught up!
                 </p>
               </div>
             </div>

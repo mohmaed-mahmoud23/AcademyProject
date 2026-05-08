@@ -1,4 +1,4 @@
-export const getTranslatedNavigation = (t: any) => [
+export const getTranslatedNavigation = (t: (key: string) => string) => [
   {
     title: t("learningPaths"),
     items: [{ title: t("frontEnd"), href: "/Learningpaths" }],

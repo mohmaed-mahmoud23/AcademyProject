@@ -35,8 +35,9 @@ export default function EditTrackModal({ track }: { track: Track }) {
       }).unwrap();
 
       toast.success(res.message || t("success"));
-    } catch (err: any) {
-      toast.error(err?.data?.message || t("error"));
+    } catch (err: unknown) {
+      const error = err as { data?: { message?: string } };
+      toast.error(error?.data?.message || t("error"));
     }
   };
 
