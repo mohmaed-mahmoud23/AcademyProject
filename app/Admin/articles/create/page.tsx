@@ -20,36 +20,44 @@ import {
 
 import { useCreateArticleMutation } from "@/app/redux/slices/ApiSlice";
 import { CreateArticleFormValues, createArticleSchema } from "@/lib/zodSecma";
-
+import { useRouter } from "next/navigation";
 export default function CreateArticles() {
+  const  router = useRouter();
   const [createArticle, { isLoading }] = useCreateArticleMutation();
-
+  
   const form = useForm<CreateArticleFormValues>({
     resolver: zodResolver(createArticleSchema),
     defaultValues: {
       title: "",
       content: "",
-      imageUrl: undefined,
+      image: undefined,
     },
   });
 
   const onSubmit = async (data: CreateArticleFormValues) => {
+
+
+
     try {
-      await createArticle({
+  const   resalt=    await createArticle({  
         title: data.title,
         content: data.content,
-        imageUrl: data.imageUrl,
+        image: data.image,
       }).unwrap();
 
-      toast.success("Article created successfully 🔥");
-      form.reset();
-    } catch (err: any) {  
-      toast.error(err?.data?.message || "Something went wrong ❌");
+
+
+toast.success(resalt.message);
+form.reset();
+router.push("/Admin/articles")
+
+    } catch (error) {
+      console.error("Error creating article:", error);
     }
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6">
+    <div className="  mx-auto p-6  w-full max-w-3xl animate-in fade-in zoom-in-95 duration-500">
       <h1 className="text-2xl font-bold mb-6">Create Article</h1>
 
       <Form {...form}>
@@ -91,12 +99,18 @@ export default function CreateArticles() {
           {/* Image */}
           <FormField
             control={form.control}
-            name="imageUrl"
+            name="image"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Image URL</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter image URL..." {...field} />
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      field.onChange(e.target.files?.[0]);
+                    }}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

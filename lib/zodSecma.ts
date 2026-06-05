@@ -186,7 +186,7 @@ export const createArticleSchema = z.object({
     .string()
     .min(10, { message: "Content must be at least 10 characters" }),
 
-  imageUrl: z
+  image: z
   .any()
   .refine((files) => {
     if (!files || files.length === 0) return true;

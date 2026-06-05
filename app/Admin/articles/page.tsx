@@ -1,8 +1,23 @@
+"use client";
+
+
+import { useGetarticlesQuery } from "@/app/redux/slices/ApiSlice";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
 export default function GetAllarticles(){
+const { data, error, isLoading } = useGetarticlesQuery();
+
+
+
+
+console.log("articles data:", data);
+
+if (isLoading) {
+  return <div>Loading...</div>;
+}
+
     return (
       <div>
         GetAllarticles
