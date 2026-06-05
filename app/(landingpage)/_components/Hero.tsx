@@ -32,7 +32,7 @@ export default async function Hero() {
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 mt-6">
             <Link
-              href="/courses"
+              href="/Learningpaths"
               className={buttonVariants({
                 size: "lg",
               })}
@@ -41,7 +41,7 @@ export default async function Hero() {
             </Link>
 
             <Link
-              href="/login"
+              href="/Login"
               className={buttonVariants({
                 size: "lg",
                 variant: "secondary",

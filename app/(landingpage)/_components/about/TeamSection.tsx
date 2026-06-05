@@ -7,12 +7,13 @@ import TeamCard from "./TeamCard";
 export default function TeamSection() {
   const t = useTranslations("AboutUs");
 
-  const supportTeam: { name: string; role: string; image: string; delay: number; imageClassName?: string }[] = [
+  const supportTeam: { name: string; role: string; image: string; delay: number; imageClassName?: string; whatsapp?: string; email?: string }[] = [
     {
       name: t("saraName"),
       role: `${t("saraRole")} | ${t("saraExp2")}`,
       image: "/images/IMG_7031.JPEG",
       delay: 0.1,
+      whatsapp: "201019804917",
     },
     {
       name: t("mahmoudMahmoudName"),
@@ -20,57 +21,38 @@ export default function TeamSection() {
       image: "/team/mahmoud_mahmoud.png",
       delay: 0.2,
       imageClassName: "scale-[1.6] object-center",
+      whatsapp: "201063264363",
     },
     {
       name: t("aHusseinName"),
       role: t("aHusseinRole"),
       image: "/team/alaa.png",
       delay: 0.3,
+      whatsapp: "201061899428",
     },
     {
       name: t("hAttarName"),
       role: t("hAttarRole"),
       image: "/team/hala.png",
       delay: 0.4,
+      whatsapp: "905313869483",
+      email: "hala45515@gmail.com",
     },
   ];
 
   return (
-    <section className="py-32 bg-[#020617] dark:bg-[#020617] relative overflow-hidden">
+    <section className="py-32 relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         {/* Header Content */}
-        <div className="text-center mb-24 space-y-6 max-w-3xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-4"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-            </span>
-            {t("heroBadge")}
-          </motion.div>
-          <motion.h2
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-5xl md:text-6xl font-extrabold tracking-tight text-white"
-          >
+        <div className="text-center mb-14">
+          <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-[0.15em] text-primary mb-5">
             {t("teamTitle")}
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            viewport={{ once: true }}
-            className="text-xl text-slate-400 font-medium"
-          >
-            {t("teamSubtitle")}
-          </motion.p>
+          </h2>
+          <div className="flex items-center justify-center gap-4">
+            <div className="w-16 h-px bg-border" />
+            <p className="text-sm md:text-base text-foreground font-medium">{t("teamSubtitle")}</p>
+            <div className="w-16 h-px bg-border" />
+          </div>
         </div>
 
         {/* Support Team Grid - Featured Row */}
@@ -83,6 +65,8 @@ export default function TeamSection() {
               image={member.image}
               delay={member.delay}
               imageClassName={member.imageClassName}
+              whatsapp={member.whatsapp}
+              email={member.email}
             />
           ))}
         </div>
@@ -97,6 +81,8 @@ export default function TeamSection() {
               image={member.image}
               delay={member.delay}
               imageClassName={member.imageClassName}
+              whatsapp={member.whatsapp}
+              email={member.email}
             />
           ))}
         </div>

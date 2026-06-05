@@ -2,23 +2,30 @@
 
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Briefcase, GraduationCap } from "lucide-react";
 
 export default function AboutHero() {
   const t = useTranslations("AboutUs");
 
   return (
-    <section className="relative overflow-hidden py-20 lg:py-32 bg-background">
-      {/* Background Decorative Glows */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none opacity-20 dark:opacity-40">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-500 rounded-full blur-[120px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-500 rounded-full blur-[120px]" />
-      </div>
+    <section className="relative overflow-hidden py-20 lg:py-32">
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
+
+        {/* Centered Header */}
+        <div className="text-center mb-14">
+          <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-[0.15em] text-primary mb-5">
+            {t("heroBadge")}
+          </h2>
+          <div className="flex items-center justify-center gap-4">
+            <div className="w-16 h-px bg-border" />
+            <p className="text-sm md:text-base text-foreground font-medium">{t("heroTitle")}</p>
+            <div className="w-16 h-px bg-border" />
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Text Content */}
           <motion.div
@@ -28,14 +35,6 @@ export default function AboutHero() {
             viewport={{ once: true }}
             className="flex flex-col items-start gap-6 text-start"
           >
-            <Badge variant="outline" className="px-4 py-1.5 text-sm font-medium border-primary/20 bg-primary/5 text-primary rounded-full">
-              {t("heroBadge")}
-            </Badge>
-
-            <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-[1.1] text-foreground">
-              {t("heroTitle")}
-            </h1>
-
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-xl">
               {t("heroDescription")}
             </p>
@@ -45,7 +44,7 @@ export default function AboutHero() {
               <div className="p-6 rounded-3xl border border-border/50 bg-card/50 backdrop-blur-xl shadow-2xl space-y-6">
                 <div className="flex items-center gap-4">
                   <Avatar className="w-16 h-16 border-2 border-background shadow-sm">
-                    <AvatarImage src="/Habib.png" alt={t("ceoName")} className="object-cover" />
+                    <AvatarImage src="/WhatsApp Image 2026-06-05 at 17.54.18.jpeg" alt={t("ceoName")} className="object-cover" />
                     <AvatarFallback className="text-xl font-bold bg-secondary text-secondary-foreground">م</AvatarFallback>
                   </Avatar>
                   <div className="space-y-1">
@@ -58,18 +57,18 @@ export default function AboutHero() {
                   <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
                     {t("ceoExpTitle")}
                   </p>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="flex items-center gap-3 text-sm text-foreground/80">
-                      <div className="p-2 rounded-xl bg-blue-500/10 text-blue-500">
-                        <Briefcase size={18} />
-                      </div>
-                      {t("ceoExp1")}
+                  <div className="grid grid-cols-3 gap-3">
+                    <div className="flex flex-col items-center text-center p-3 rounded-2xl bg-blue-500/10 border border-blue-500/20">
+                      <span className="text-xl font-black text-blue-400">{t("ceoExp1Num")}</span>
+                      <span className="text-[11px] text-muted-foreground mt-0.5 leading-tight">{t("ceoExp1Label")}</span>
                     </div>
-                    <div className="flex items-center gap-3 text-sm text-foreground/80">
-                      <div className="p-2 rounded-xl bg-purple-500/10 text-purple-500">
-                        <GraduationCap size={18} />
-                      </div>
-                      {t("ceoExp2")}
+                    <div className="flex flex-col items-center text-center p-3 rounded-2xl bg-primary/10 border border-primary/20">
+                      <span className="text-xl font-black text-primary">{t("ceoExp2Num")}</span>
+                      <span className="text-[11px] text-muted-foreground mt-0.5 leading-tight">{t("ceoExp2Label")}</span>
+                    </div>
+                    <div className="flex flex-col items-center text-center p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/20">
+                      <span className="text-xl font-black text-emerald-400">{t("ceoExp3Num")}</span>
+                      <span className="text-[11px] text-muted-foreground mt-0.5 leading-tight">{t("ceoExp3Label")}</span>
                     </div>
                   </div>
                 </div>
@@ -79,11 +78,11 @@ export default function AboutHero() {
             </div>
 
             <div className="flex flex-wrap gap-4 mt-6">
-              <Button size="lg" className="rounded-full px-8 font-semibold shadow-lg shadow-primary/20 hover:scale-105 transition-transform active:scale-95">
-                {t("viewCourses")}
+              <Button size="lg" asChild className="rounded-full px-8 font-semibold shadow-lg shadow-primary/20 hover:scale-105 transition-transform active:scale-95">
+                <Link href="/Learningpaths">{t("viewCourses")}</Link>
               </Button>
-              <Button size="lg" variant="outline" className="rounded-full px-8 font-semibold hover:bg-muted transition-colors">
-                {t("contactUs")}
+              <Button size="lg" variant="outline" asChild className="rounded-full px-8 font-semibold hover:bg-muted transition-colors">
+                <a href="https://wa.me/201064501682" target="_blank" rel="noopener noreferrer">{t("contactUs")}</a>
               </Button>
             </div>
           </motion.div>
@@ -100,7 +99,7 @@ export default function AboutHero() {
               {/* Modern Avatar with Actual Photo */}
               <div className="absolute inset-0 flex items-center justify-center p-4">
                 <Avatar className="w-[85%] h-[85%] border-6 border-background/50 shadow-2xl">
-                  <AvatarImage src="/Habib.png" alt={t("ceoName")} className="object-cover" />
+                  <AvatarImage src="/WhatsApp Image 2026-06-05 at 17.54.18.jpeg" alt={t("ceoName")} className="object-cover" />
                   <AvatarFallback className="text-6xl font-bold bg-gradient-to-br from-primary to-purple-600 text-white">MH</AvatarFallback>
                 </Avatar>
               </div>
@@ -113,14 +112,14 @@ export default function AboutHero() {
               >
                 <div className="flex items-center gap-3">
                   <div className="flex -space-x-2">
-                    {[1, 2, 3,4].map((i) => (
+                    {["/team/hala.png", "/team/mahmoud_mahmoud.png", "/team/alaa.png", "/team/mohamed.png"].map((src, i) => (
                       <div key={i} className="w-8 h-8 rounded-full border-2 border-background bg-muted overflow-hidden">
-                        <div className="w-full h-full bg-gradient-to-br from-gray-300 to-gray-500" />
+                        <img src={src} alt="" className="w-full h-full object-cover" />
                       </div>
                     ))}
                   </div>
-                  <p className="text-xs font-medium text-foreground/80 lowercase">
-                    +500 students joined this week
+                  <p className="text-xs font-medium text-foreground/80">
+                    {t("studentsJoined")}
                   </p>
                 </div>
               </motion.div>

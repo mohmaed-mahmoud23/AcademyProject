@@ -4,12 +4,12 @@
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function MegaMenu({ nav }: any) {
   const [open, setOpen] = useState(false);
+  const [hovered, setHovered] = useState<number | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
-  const t = useTranslations("MegaMenu");
 
   useEffect(() => {
     function handleClickOutside(e: any) {
@@ -17,63 +17,115 @@ export default function MegaMenu({ nav }: any) {
         setOpen(false);
       }
     }
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const isGrid = nav.items.length > 3;
+
   return (
     <div ref={menuRef} className="relative hidden md:block">
-      {/* Button */}
+
+      {/* Trigger */}
       <button
-        onClick={() => setOpen((prev) => !prev)}
-        className="flex items-center gap-1 font-medium text-sm px-2 py-1 hover:text-primary transition"
+        onClick={() => setOpen((p) => !p)}
+        className={`group flex items-center gap-1.5 text-sm font-medium px-3 py-2 rounded-lg transition-all duration-200 ${
+          open ? "text-primary" : "text-foreground/70 hover:text-foreground"
+        }`}
       >
         {nav.title}
         <ChevronDown
-          size={16}
-          className={`transition duration-300 ${open ? "rotate-180" : ""}`}
+          size={14}
+          className={`transition-transform duration-300 ${open ? "rotate-180 text-primary" : ""}`}
         />
       </button>
 
-      {/* Overlay */}
-      {open && (
-        <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40" />
-      )}
+      {/* Backdrop */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-40"
+            onClick={() => setOpen(false)}
+          />
+        )}
+      </AnimatePresence>
 
-      {/* Menu */}
-      <div
-        className={`
-          absolute start-1/2 -translate-x-1/2 rtl:translate-x-1/2 top-full mt-4 z-50
-          w-[90vw] max-w-[700px]
-          max-h-[80vh] overflow-y-auto
-          rounded-2xl border bg-white dark:bg-zinc-900 shadow-2xl
-          p-4 sm:p-6
-          transition-all duration-300
-          ${open
-            ? "opacity-100 translate-y-0 scale-100"
-            : "opacity-0 translate-y-2 scale-95 pointer-events-none"
-          }
-        `}
-      >
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-          {nav.items.map((item: any) => (
-            <Link
-              key={item.title}
-              href={item.href}
-              className="group flex flex-col gap-1 p-3 sm:p-4 rounded-xl border hover:border-primary/40 hover:bg-muted/50 transition"
-            >
-              <span className="font-semibold group-hover:text-primary transition">
-                {item.title}
-              </span>
+      {/* Panel */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -12, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -12, scale: 0.95 }}
+            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className={`absolute inset-s-0 top-[calc(100%+12px)] z-50 ${isGrid ? "w-72" : "w-56"}`}
+          >
+            {/* Glow */}
+            <div className="absolute -inset-1 bg-primary/20 rounded-3xl blur-xl opacity-60 pointer-events-none" />
 
-              <span className="text-xs sm:text-sm text-muted-foreground">
-                {t("clickToEnter")}
-              </span>
-            </Link>
-          ))}
-        </div>
-      </div>
+            <div className="relative bg-card border border-border/50 rounded-2xl shadow-2xl overflow-hidden">
+
+              {/* Header strip */}
+              <div className="px-4 py-3 border-b border-border/40 bg-primary/5">
+                <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-primary/70">
+                  {nav.title}
+                </p>
+              </div>
+
+              {/* Items */}
+              <div className={`p-2 ${isGrid ? "grid grid-cols-2 gap-1" : "flex flex-col gap-0.5"}`}>
+                {nav.items.map((item: any, i: number) => (
+                  <Link
+                    key={item.title}
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                  >
+                    <motion.div
+                      initial={{ opacity: 0, x: -8 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.045, duration: 0.2 }}
+                      onHoverStart={() => setHovered(i)}
+                      onHoverEnd={() => setHovered(null)}
+                      className="relative flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer overflow-hidden"
+                    >
+                      {/* Hover bg */}
+                      {hovered === i && (
+                        <motion.div
+                          layoutId="hover-bg"
+                          className="absolute inset-0 bg-primary/10 rounded-xl"
+                          transition={{ duration: 0.15 }}
+                        />
+                      )}
+
+                      {/* Number badge */}
+                      <span className={`relative z-10 flex items-center justify-center w-6 h-6 rounded-lg text-[10px] font-black shrink-0 transition-colors duration-150 ${
+                        hovered === i
+                          ? "bg-primary text-primary-foreground"
+                          : "bg-muted text-muted-foreground"
+                      }`}>
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+
+                      <span className={`relative z-10 text-sm font-semibold transition-colors duration-150 ${
+                        hovered === i ? "text-primary" : "text-foreground/75"
+                      }`}>
+                        {item.title}
+                      </span>
+                    </motion.div>
+                  </Link>
+                ))}
+              </div>
+
+              {/* Bottom accent line */}
+              <div className="h-0.5 bg-linear-to-r from-transparent via-primary/40 to-transparent" />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
     </div>
   );
 }

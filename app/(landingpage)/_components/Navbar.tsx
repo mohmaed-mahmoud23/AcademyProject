@@ -3,13 +3,13 @@
 
 import Image from "next/image";
 import MegaMenu from "./MegaMenu";
-import LoGO from "@/public/images/Habib academy svg Logo.svg";
+import LoGO from "@/public/habib-logo.jpg";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ThemToggle } from "@/components/ui/themToggle";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
-import { useTranslations, useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -17,12 +17,15 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const t = useTranslations("Navbar");
   const tNav = useTranslations("Navigation");
-  const locale = useLocale();
 
   const navigationData = [
     {
       title: tNav("learningPaths"),
-      items: [{ title: tNav("frontEnd"), href: "/Learningpaths" }],
+      items: [
+        { title: tNav("frontEnd"),    href: "/Learningpaths" },
+        { title: tNav("backEndPath"), href: "/Backendpath"   },
+        { title: tNav("basicsPath"),  href: "/Basicspath"    },
+      ],
     },
     {
       title: tNav("learningNow"),
@@ -38,33 +41,28 @@ export default function Navbar() {
         { title: "HTML", href: "/HTML" },
         { title: "CSS", href: "/CSS" },
         { title: "JavaScript", href: "/JavaScript" },
-        { title: "SASS", href: "/SASS" },
-        { title: "TypeScript", href: "/TypeScript" },
-        { title: "PHP", href: "/PHP" },
-        { title: "Python", href: "/Python" },
         { title: "React", href: "/React" },
         { title: "Tailwind", href: "/Tailwind" },
+        { title: "Next.js", href: "/Nextjs" },
       ],
     },
     {
       title: tNav("fromChannel"),
       items: [
         { title: tNav("problemSolving"), href: "/ProblemSolving" },
-        { title: tNav("whatNew"), href: "/plans/6" },
       ],
     },
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-xl supports-backdrop-filter:bg-background/60">
       <div className="container mx-auto flex items-center justify-between h-16 px-6 gap-4">
         {/* 🔹 Logo */}
-        <Link href="/" className="flex items-center group transition-transform duration-300 hover:scale-105">
+        <Link href="/" className="flex items-center">
           <div className="relative">
-            <Image src={LoGO} alt="Logo" width={55} height={55} className="rounded-2xl shadow-lg" />
-            <div className="absolute -inset-1 bg-primary/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition-opacity" />
+            <Image src={LoGO} alt="Logo" width={55} height={55} className="rounded-2xl transition-transform duration-300 hover:scale-110" />
           </div>
-          <span className="hidden sm:block font-black text-xl tracking-tighter ml-3 bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">
+          <span className="hidden sm:block font-black text-xl tracking-tighter ml-3 bg-clip-text text-transparent bg-linear-to-r from-foreground to-foreground/70">
             {t("brand")}
           </span>
         </Link>

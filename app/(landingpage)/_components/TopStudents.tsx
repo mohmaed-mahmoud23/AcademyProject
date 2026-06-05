@@ -16,8 +16,6 @@ import Image from "next/image";
 
 export default function TopStudents() {
 
-
-
   const batches = [
     {
       id: 1,
@@ -57,11 +55,10 @@ export default function TopStudents() {
   const [activeBatch, setActiveBatch] = useState(batches[0]);
 
   return (
-    <section className="p-6   rounded-xl">
-      <h1 className="text-4xl text-muted-foreground font-bold   lg:text-5xl lg:ps-2 lg:mb-10 md:ps-5 md:mb-5 mb-6">
+    <section className="p-6 rounded-xl">
+      <h1 className="text-4xl text-muted-foreground font-bold lg:text-5xl lg:ps-2 lg:mb-10 md:ps-5 md:mb-5 mb-6">
         Top Students
       </h1>
-      {/* Tabs */}
       <div className="flex gap-3 mb-6">
         {batches.map((batch) => (
           <Button
@@ -74,11 +71,10 @@ export default function TopStudents() {
         ))}
       </div>
 
-      {/* Table */}
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[80px]">Rank</TableHead>
+            <TableHead className="w-20">Rank</TableHead>
             <TableHead>Student</TableHead>
             <TableHead className="text-end">XP</TableHead>
           </TableRow>
@@ -88,21 +84,17 @@ export default function TopStudents() {
           {activeBatch.students.map((student) => (
             <TableRow key={student.rank}>
               <TableCell className="font-medium">{student.rank}</TableCell>
-
               <TableCell className="flex items-center gap-3">
                 <Image
-                  width={122}
-                  height={120}
+                  width={32}
+                  height={32}
                   src={student.avatar}
                   alt={student.name}
                   className="w-8 h-8 rounded-full"
                 />
                 {student.name}
               </TableCell>
-
-              <TableCell className="text-end ">
-                {student.xp}
-              </TableCell>
+              <TableCell className="text-end">{student.xp}</TableCell>
             </TableRow>
           ))}
         </TableBody>
