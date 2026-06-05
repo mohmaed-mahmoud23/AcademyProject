@@ -3,6 +3,7 @@ import {
   ActivateStudentResponse,
   AdminResponse,
   ApiResponse,
+  ArticlesResponse,
   AssignmentDetailsResponse,
   AssignmentResponse,
   AssignmentStatsResponse,
@@ -34,10 +35,14 @@ import { toast } from "sonner";
 import CookieService from "@/lib/cookieService";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://localhost:7012/api/v1/",
+  baseUrl: "https://api.habib-academy.tech/api/v1/",
   prepareHeaders: (headers) => {
     const token = CookieService.get("token");
-    if (token) headers.set("Authorization", `Bearer ${token}`);
+
+    if (token) {
+      headers.set("Authorization", `Bearer ${token}`);
+    }
+
     return headers;
   },
 });
@@ -169,13 +174,24 @@ export const ApiSlice = createApi({
       query: ({ trackId, studentId }) => `tracks/${trackId}/students/${studentId}/progress`,
     }),
 
-    createArticle: builder.mutation<CreateArticleResponse, CreateArticleRequest>({
-      query: (body) => ({
-        url: "articles",
-        method: "POST",
-        body,
-      }),
-    }),
+createArticle: builder.mutation<
+  CreateArticleResponse,
+  { title: string; content: string; image: File }
+>({
+  query: ({ title, content, image }) => {
+    const formData = new FormData();
+
+    formData.append("title", title);
+    formData.append("content", content);
+    formData.append("image", image);
+
+    return {
+      url: "articles",
+      method: "POST",
+      body: formData,
+    };
+  },
+}),
 
     getBatchStudents: builder.query<BatchStudentsResponse, string>({
       query: (batchId) => `batches/${batchId}/students`,
@@ -280,6 +296,14 @@ export const ApiSlice = createApi({
 
     getMe: builder.query<IUser, void>({
       query: () => "auth/me",
+      providesTags: ["Dashboard"]
+    }),
+
+
+
+
+    getarticles: builder.query<ArticlesResponse , void>({
+      query: () => "articles",
       providesTags: ["Dashboard"]
     }),
 
@@ -525,4 +549,5 @@ export const {
   useDeleteAdminMutation,
   useDeleteTrackMutation,
   useUpdateBatchMutation,
+  useGetarticlesQuery,
 } = ApiSlice;

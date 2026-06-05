@@ -157,7 +157,23 @@ export interface BatchesData {
   hasNext: boolean
 }
 
+export interface Article {
+  id: string;
+  title: string;
+  content: string;
+  imageUrl: string | null;
+  authorName: string;
+  createdAt: string;
+}
 
+export interface ArticlesResponse {
+  data: Article[];
+  message: string;
+  isSuccess: boolean;
+  statusCode: number;
+  errors: string[];
+  timestamp: string;
+}
 
 export interface ApiResponse<T> {
   data: T
