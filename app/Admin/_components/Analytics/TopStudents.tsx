@@ -2,10 +2,10 @@
 
 import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-  Trophy, 
-  Search, 
-  ChevronRight, 
+import {
+  Trophy,
+  Search,
+  ChevronRight,
   Star,
   Award,
   Medal
@@ -33,9 +33,9 @@ export function TopStudents({ students }: TopStudentsProps) {
 
   const filteredStudents = useMemo(() => {
     return students
-      .filter(s => 
-        (s.studentName.toLowerCase().includes(searchTerm.toLowerCase()) || 
-         s.email.toLowerCase().includes(searchTerm.toLowerCase())) &&
+      .filter(s =>
+        (s.studentName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          s.email.toLowerCase().includes(searchTerm.toLowerCase())) &&
         (filterType === "all" || s.batchName === filterType)
       )
       .slice(0, 10);
@@ -58,13 +58,13 @@ export function TopStudents({ students }: TopStudentsProps) {
             </div>
             <CardTitle className="text-2xl font-black tracking-tight">{t("topPerformers")}</CardTitle>
           </div>
-          
+
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="relative group">
               <Search className="absolute start-3 top-1/2 -translate-y-1/2 text-muted-foreground peer-focus:text-primary transition-colors" size={16} />
-              <input 
-                type="text" 
-                placeholder={t("searchStudents")} 
+              <input
+                type="text"
+                placeholder={t("searchStudents")}
                 className="ps-10 pe-4 py-2 bg-white/5 border border-border/40 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all w-full sm:w-60 peer"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -80,8 +80,8 @@ export function TopStudents({ students }: TopStudentsProps) {
               onClick={() => setFilterType(filter)}
               className={cn(
                 "px-4 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap border capitalize",
-                filterType === filter 
-                  ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20" 
+                filterType === filter
+                  ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20"
                   : "bg-white/5 text-muted-foreground border-border/40 hover:bg-white/10"
               )}
             >
@@ -113,7 +113,6 @@ export function TopStudents({ students }: TopStudentsProps) {
 
                 <div className="relative shrink-0">
                   <Avatar className="h-12 w-12 border-2 border-border/40 group-hover:border-primary/50 transition-all duration-500 ring-4 ring-transparent group-hover:ring-primary/10">
-                    <AvatarImage src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${student.studentName}`} />
                     <AvatarFallback className="font-bold bg-gradient-to-br from-primary to-primary/60 text-white uppercase">
                       {student.studentName.substring(0, 2)}
                     </AvatarFallback>
@@ -132,7 +131,7 @@ export function TopStudents({ students }: TopStudentsProps) {
                         </Badge>
                       </div>
                     </div>
-                    
+
                     <div className="text-end">
                       <div className="flex items-center justify-end gap-1.5">
                         <span className="text-xl font-black text-foreground">{student.averageScore}%</span>
@@ -144,14 +143,14 @@ export function TopStudents({ students }: TopStudentsProps) {
                       <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest leading-none mt-1">{t("averageGrade")}</p>
                     </div>
                   </div>
-                  
+
                   <div className="relative pt-1">
-                    <Progress 
-                      value={student.averageScore} 
+                    <Progress
+                      value={student.averageScore}
                       className={cn(
                         "h-1.5 bg-white/5",
                         student.averageScore >= 90 ? "[&>div]:bg-emerald-500" : "[&>div]:bg-primary"
-                      )} 
+                      )}
                     />
                   </div>
                 </div>
@@ -161,7 +160,7 @@ export function TopStudents({ students }: TopStudentsProps) {
                     <ChevronRight size={16} className="rtl:rotate-180" />
                   </div>
                 </div>
-                
+
                 {idx === 0 && (
                   <div className="absolute top-0 end-10 -translate-y-1/2 p-1.5 bg-yellow-500/20 rounded-full border border-yellow-500/30">
                     <Award size={14} className="text-yellow-500" />

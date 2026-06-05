@@ -97,7 +97,6 @@ export function TopStudentsLeaderboard({ students = [] }: TopStudentsLeaderboard
 
                     <div className="relative shrink-0">
                       <Avatar className="h-14 w-14 border-2 border-border/40 group-hover:border-blue-500 group-hover:shadow-[0_0_15px_rgba(59,130,246,0.3)] transition-all duration-700">
-                        <AvatarImage src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${student.studentName ?? 'Student'}`} />
                         <AvatarFallback className="font-black bg-gradient-to-br from-blue-500 to-indigo-600 text-white uppercase text-lg">
                           {student.studentName?.substring(0, 2) ?? '??'}
                         </AvatarFallback>
