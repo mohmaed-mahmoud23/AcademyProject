@@ -7,6 +7,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -24,6 +25,7 @@ export function NavMain({
 }) {
   const pathname = usePathname();
   const t = useTranslations("Admin");
+  const { setOpenMobile, isMobile } = useSidebar();
 
   return (
     <SidebarGroup>
@@ -36,7 +38,7 @@ export function NavMain({
                 tooltip={t("quickCreate")}
                 className="bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground min-w-8 duration-200 ease-linear"
               >
-                <Link href={"/Admin/Batches/createbatches"}>
+                <Link href={"/Admin/Batches/createbatches"} onClick={() => isMobile && setOpenMobile(false)}>
                   <IconCirclePlusFilled />
                   <span>{t("quickCreate")}</span>
                 </Link>
@@ -51,6 +53,7 @@ export function NavMain({
                 <Link
                   href={item.url}
                   className={cn(pathname === item.url && "bg-muted")}
+                  onClick={() => isMobile && setOpenMobile(false)}
                 >
                   {item.icon && (
                     <item.icon

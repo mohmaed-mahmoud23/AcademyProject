@@ -343,7 +343,13 @@
     "searchStudents": "Search students, emails...",
     "averageGrade": "Average Grade",
     "noStudents": "No students found",
-    "tryAdjusting": "Try adjusting your filters or search term."
+    "tryAdjusting": "Try adjusting your filters or search term.",
+    "tracksAnalyticsTitle": "Tracks Analytics",
+    "mostPopular": "Most Popular",
+    "studentsCountLabel": "Students Count",
+    "avgScoreLabel": "Avg Score",
+    "smartVision": "Smart Insight",
+    "trackInsightText": "{popularTrack} is the most popular track by student count, while {bestTrack} achieves the highest average score at {score}%"
   },
   "BatchesPage": {
     "title": "All Batches",

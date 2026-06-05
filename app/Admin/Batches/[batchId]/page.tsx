@@ -296,7 +296,7 @@ export default function BatchDetails() {
                           <FormMessage />
                         </FormItem>
                       )} />
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <FormField control={studentForm.control} name="firstName" render={({ field }) => (
                           <FormItem>
                             <FormLabel className="text-foreground/80 font-bold text-xs uppercase tracking-wider">{t("firstName")}</FormLabel>

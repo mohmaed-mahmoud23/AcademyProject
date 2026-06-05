@@ -101,7 +101,7 @@ export function SmartInsights({ data }: SmartInsightsProps) {
 
   return (
     <Card className="glassy border-border/40 overflow-hidden shadow-2xl backdrop-blur-3xl transition-all duration-700 h-full flex flex-col">
-      <CardHeader className="pb-8 bg-gradient-to-br from-purple-500/5 to-transparent border-b border-white/5">
+      <CardHeader className="pb-4 sm:pb-8 bg-gradient-to-br from-purple-500/5 to-transparent border-b border-white/5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="p-3 rounded-2xl bg-purple-500/10 border border-purple-500/20 shadow-[0_0_15px_rgba(168,85,247,0.2)] animate-pulse">
@@ -116,7 +116,7 @@ export function SmartInsights({ data }: SmartInsightsProps) {
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-6 pt-8 flex-1">
+      <CardContent className="space-y-4 sm:space-y-6 pt-4 sm:pt-8 flex-1">
         {insights.map((insight, idx) => (
           <motion.div
             key={insight.id}

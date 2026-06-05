@@ -210,7 +210,7 @@ console.log( "asssimaent",assignmentlecture?.data);
                   )}
                 />
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <FormField
                     control={LectcherassomentForm.control}
                     name="maxScore"
@@ -487,7 +487,7 @@ console.log( "asssimaent",assignmentlecture?.data);
                           )}
                         />
 
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <FormField
                             control={updateForm.control}
                             name="maxScore"

@@ -41,7 +41,7 @@ export default function TeamSection() {
   ];
 
   return (
-    <section className="py-32 relative overflow-hidden">
+    <section id="support-team" className="py-32 relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         {/* Header Content */}
         <div className="text-center mb-14">

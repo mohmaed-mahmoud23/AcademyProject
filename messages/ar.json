@@ -369,7 +369,13 @@
     "searchStudents": "البحث عن الطلاب، البريد الإلكتروني...",
     "averageGrade": "متوسط الدرجات",
     "noStudents": "لم يتم العثور على طلاب",
-    "tryAdjusting": "حاول تعديل شروط البحث أو التصفية."
+    "tryAdjusting": "حاول تعديل شروط البحث أو التصفية.",
+    "tracksAnalyticsTitle": "تحليل المسارات",
+    "mostPopular": "الأكثر شعبية",
+    "studentsCountLabel": "عدد الطلاب",
+    "avgScoreLabel": "متوسط الدرجات",
+    "smartVision": "رؤية ذكية",
+    "trackInsightText": "{popularTrack} هو الأكثر شعبية من حيث عدد الطلاب، بينما يحقق مسار {bestTrack} أعلى متوسط درجات بنسبة {score}%"
   },
   "BatchesPage": {
     "title": "جميع المجموعات",

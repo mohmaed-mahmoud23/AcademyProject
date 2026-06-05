@@ -65,10 +65,10 @@ export function AnalyticsDashboard() {
   }
 
   return (
-    <div className="max-w-[1600px] mx-auto space-y-12 pb-20 px-4 sm:px-6 lg:px-8 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+    <div className="max-w-[1600px] mx-auto space-y-6 md:space-y-12 pb-20 px-4 sm:px-6 lg:px-8 animate-in fade-in slide-in-from-bottom-4 duration-1000 overflow-x-hidden">
       {/* 🚀 Header & Global Controls */}
-      <header className="flex flex-col xl:flex-row xl:items-end justify-between gap-8 relative">
-        <div className="space-y-3 relative z-10">
+      <header className="flex flex-col xl:flex-row xl:items-end justify-between gap-4 md:gap-8 relative">
+        <div className="space-y-2 md:space-y-3 relative z-10">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -84,19 +84,18 @@ export function AnalyticsDashboard() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.8 }}
-            className="text-5xl md:text-6xl font-black text-foreground tracking-tighter leading-[0.9]"
+            className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-black text-foreground tracking-tighter leading-[0.9]"
           >
             {t("headerTitle").split(' ').slice(0, 2).join(' ')} <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-600 dark:from-blue-400 dark:via-indigo-400 dark:to-purple-500 hover:from-purple-500 hover:to-blue-500 cursor-default transition-all duration-1000">
               {t("headerTitle").split(' ').slice(2).join(' ')}.
             </span>
           </motion.h1>
-          <p className="text-muted-foreground text-lg max-w-2xl font-medium tracking-tight opacity-80">{t("headerSubtitle")}</p>
+          <p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl font-medium tracking-tight opacity-80">{t("headerSubtitle")}</p>
         </div>
 
-
-        {/* Dynamic Background Glow */}
-        <div className="absolute -top-32 -left-32 w-[35rem] h-[35rem] bg-indigo-500/10 blur-[150px] rounded-full pointer-events-none opacity-50" />
+        {/* Dynamic Background Glow - hidden on mobile to prevent overflow */}
+        <div className="hidden md:block absolute -top-32 -left-32 w-[35rem] h-[35rem] bg-indigo-500/10 blur-[150px] rounded-full pointer-events-none opacity-50" />
       </header>
 
       {/* 📊 1. Hero Summary (SectionCards) */}

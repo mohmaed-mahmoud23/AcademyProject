@@ -56,7 +56,7 @@ export default function Batches() {
 
   return (
     <>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
         <h1 className="text-2xl font-black">{t("title")}</h1>
 
         <Link
@@ -67,6 +67,7 @@ export default function Batches() {
         </Link>
       </div>
 
+      <div className="overflow-x-auto rounded-xl">
       <Table>
         <TableHeader>
           <TableRow>
@@ -128,6 +129,7 @@ export default function Batches() {
           ))}
         </TableBody>
       </Table>
+      </div>
     </>
   );
 }

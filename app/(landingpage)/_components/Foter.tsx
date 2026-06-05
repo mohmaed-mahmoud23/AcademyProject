@@ -21,7 +21,7 @@ export default function Footer() {
   ];
 
   const support = [
-    { label: t("support1"), href: "#" },
+    { label: t("support1"), href: "/#support-team" },
     { label: t("support2"), href: "#" },
     { label: t("support3"), href: "#" },
   ];

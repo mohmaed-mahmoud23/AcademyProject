@@ -59,7 +59,7 @@ const CustomTooltip = ({ active, payload, label, t }: any) => {
                                         style={{ color: entry.fill || entry.color }}
                                     />
                                     <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
-                                        {entry.name === "studentCount" ? "عدد الطلاب" : "متوسط الدرجات"}
+                                        {entry.name === "studentCount" ? t("studentsCountLabel") : t("avgScoreLabel")}
                                     </span>
                                 </div>
                                 <span className="text-lg font-black text-foreground tabular-nums tracking-tighter">
@@ -99,9 +99,9 @@ export function TracksAnalyticsChart({ tracks }: TracksAnalyticsChartProps) {
         return {
             mostPopular,
             bestPerformance,
-            text: `${mostPopular.trackName} هو الأكثر شعبية من حيث عدد الطلاب، بينما يحقق مسار ${bestPerformance.trackName} أعلى متوسط درجات بنسبة ${bestPerformance.averageScore}%`
+            text: t("trackInsightText", { popularTrack: mostPopular.trackName, bestTrack: bestPerformance.trackName, score: bestPerformance.averageScore.toFixed(1) })
         };
-    }, [processedData]);
+    }, [processedData, t]);
 
     if (!processedData.length) return null;
 
@@ -111,41 +111,41 @@ export function TracksAnalyticsChart({ tracks }: TracksAnalyticsChartProps) {
             <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 blur-[100px] rounded-full pointer-events-none -mr-32 -mt-32" />
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/5 blur-[100px] rounded-full pointer-events-none -ml-32 -mb-32" />
 
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 p-8 pb-4 relative z-10">
-                <div className="flex items-center gap-5">
-                    <div className="relative">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 p-4 sm:p-8 pb-4 relative z-10 gap-3">
+                <div className="flex items-center gap-3 sm:gap-5 min-w-0">
+                    <div className="relative shrink-0">
                         <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200" />
-                        <div className="relative p-3.5 rounded-2xl bg-white/5 border border-white/10 shadow-lg">
-                            <TrendingUp size={24} className="text-blue-500 animate-pulse" />
+                        <div className="relative p-2.5 sm:p-3.5 rounded-2xl bg-white/5 border border-white/10 shadow-lg">
+                            <TrendingUp size={20} className="text-blue-500 animate-pulse" />
                         </div>
                     </div>
-                    <div className="space-y-1">
-                        <CardTitle className="text-3xl font-black tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">
-                            تحليل المسارات
+                    <div className="space-y-1 min-w-0">
+                        <CardTitle className="text-xl sm:text-3xl font-black tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">
+                            {t("tracksAnalyticsTitle")}
                         </CardTitle>
                         <div className="flex items-center gap-2">
-                            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                            <p className="text-[10px] text-muted-foreground font-black uppercase tracking-[0.2em]">{t("realTimeStream")}</p>
+                            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+                            <p className="text-[10px] text-muted-foreground font-black uppercase tracking-[0.2em] truncate">{t("realTimeStream")}</p>
                         </div>
                     </div>
                 </div>
 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 shrink-0">
                     <div className="hidden md:flex flex-col items-end px-4 py-2 rounded-2xl bg-white/5 border border-white/10">
-                        <span className="text-[10px] font-bold text-muted-foreground uppercase">الأكثر شعبية</span>
+                        <span className="text-[10px] font-bold text-muted-foreground uppercase">{t("mostPopular")}</span>
                         <span className="text-sm font-black text-blue-500 flex items-center gap-1">
                             <Flame size={14} />
                             {insights?.mostPopular.trackName}
                         </span>
                     </div>
-                    <button className="p-3 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-blue-500/20 transition-all group/btn shadow-inner">
-                        <ArrowUpRight size={20} className="text-muted-foreground group-hover/btn:text-blue-500 transition-colors" />
+                    <button className="p-2.5 sm:p-3 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-blue-500/20 transition-all group/btn shadow-inner">
+                        <ArrowUpRight size={18} className="text-muted-foreground group-hover/btn:text-blue-500 transition-colors" />
                     </button>
                 </div>
             </CardHeader>
 
-            <CardContent className="p-8 pt-4 relative z-10">
-                <div className="h-[400px] w-full mt-8">
+            <CardContent className="p-4 sm:p-8 pt-4 relative z-10">
+                <div className="h-[220px] sm:h-[320px] md:h-[400px] w-full mt-4 sm:mt-8">
                     <ResponsiveContainer width="100%" height="100%">
                         <ComposedChart data={processedData} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
                             <defs>
@@ -272,12 +272,12 @@ export function TracksAnalyticsChart({ tracks }: TracksAnalyticsChartProps) {
                     <div className="flex-1 space-y-2 relative">
                         <div className="flex items-center gap-2">
                             <span className="px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-500 text-[10px] font-black uppercase tracking-widest border border-blue-500/20">
-                                رؤية ذكية
+                                {t("smartVision")}
                             </span>
                             {insights?.mostPopular && (
                                 <span className="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-500 text-[10px] font-black uppercase tracking-widest border border-amber-500/20">
                                     <Flame size={12} />
-                                    الأكثر شعبية
+                                    {t("mostPopular")}
                                 </span>
                             )}
                         </div>

@@ -10,12 +10,12 @@ import {
   UserCheck
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { cn } from "@/lib/utils";
 import { RecentUser } from "@/app/interfaces";
 
 // Lightweight local alternative to date-fns to resolve module-not-found errors
-function formatDistanceToNow(date: Date, options?: { addSuffix?: boolean }, locale?: string) {
+function formatDistanceToNow(date: Date, _options?: { addSuffix?: boolean }, locale?: string) {
   const diffInSeconds = Math.floor((new Date().getTime() - date.getTime()) / 1000);
   const isAr = locale === 'ar';
 
@@ -38,6 +38,8 @@ interface ActivityTimelineProps {
 
 export function ActivityTimeline({ recentUsers = [] }: ActivityTimelineProps) {
   const t = useTranslations("Analytics");
+  const locale = useLocale();
+  const isAr = locale === "ar";
   const [showAll, setShowAll] = useState(false);
 
   const displayedUsers = showAll ? recentUsers : recentUsers.slice(0, 5);
@@ -81,8 +83,8 @@ export function ActivityTimeline({ recentUsers = [] }: ActivityTimelineProps) {
       </CardHeader>
 
       <CardContent className="p-0 flex-1 flex flex-col">
-        <div className="relative pt-6 px-6 flex-1">
-          <div className="absolute left-10 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500/50 via-purple-500/50 to-transparent" />
+        <div className="relative pt-4 sm:pt-6 px-4 sm:px-6 flex-1">
+          <div className="absolute left-8 sm:left-10 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500/50 via-purple-500/50 to-transparent" />
 
           <div className="space-y-8 pb-8">
             <AnimatePresence mode="popLayout">
@@ -90,8 +92,6 @@ export function ActivityTimeline({ recentUsers = [] }: ActivityTimelineProps) {
                 displayedUsers.map((user, idx) => {
                   const Icon = getIcon(user.role);
                   const color = getColor(user.role);
-                  const isAr = t("activity") === "نشاط";
-
                   return (
                     <motion.div
                       key={user.email + idx}
@@ -138,7 +138,7 @@ export function ActivityTimeline({ recentUsers = [] }: ActivityTimelineProps) {
               onClick={() => setShowAll(!showAll)}
               className="w-full py-4 rounded-[2rem] bg-white/5 border border-white/10 text-[11px] font-black uppercase tracking-[0.25em] hover:bg-blue-500 hover:text-white hover:border-transparent transition-all duration-700 shadow-lg relative overflow-hidden"
             >
-              <span className="relative z-10">{showAll ? t("insight1").split(' ').slice(0, 1).join('') === 'Most' ? "Show Less" : "عرض أقل" : t("viewAll")}</span>
+              <span className="relative z-10">{showAll ? t("showLess") : t("viewAll")}</span>
               <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 translate-y-full group-hover:translate-y-0 transition-transform duration-700" />
             </button>
           </div>
