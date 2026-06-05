@@ -37,7 +37,7 @@ import CookieService from "@/lib/cookieService";
 const baseQuery = fetchBaseQuery({
   baseUrl: "https://api.habib-academy.tech/api/v1/",
   prepareHeaders: (headers) => {
-    const token = CookieService.get("token");
+    const token = CookieService.get("token"); 
 
     if (token) {
       headers.set("Authorization", `Bearer ${token}`);
