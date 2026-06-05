@@ -58,7 +58,7 @@ export default function NextjsUIArticle() {
 
           <h2 className="text-xl font-bold text-foreground mt-8 mb-3">٣. Server Components vs Client Components</h2>
           <p>
-            القاعدة الذهبية: كل مكون في Next.js هو Server Component بشكل افتراضي — وهذا أسرع لأنه يُرسل HTML جاهز للمتصفح. استخدم <code className="bg-muted px-1.5 py-0.5 rounded text-sm">"use client"</code> فقط عندما تحتاج:
+            القاعدة الذهبية: كل مكون في Next.js هو Server Component بشكل افتراضي — وهذا أسرع لأنه يُرسل HTML جاهز للمتصفح. استخدم <code className="bg-muted px-1.5 py-0.5 rounded text-sm">&quot;use client&quot;</code> فقط عندما تحتاج:
           </p>
           <ul className="list-disc list-inside space-y-2 text-muted-foreground">
             <li>useState أو useEffect</li>
@@ -74,7 +74,7 @@ export default function NextjsUIArticle() {
 
           <h2 className="text-xl font-bold text-foreground mt-8 mb-3">٥. الأداء أولاً</h2>
           <p>
-            Next.js يوفر لك Image Optimization تلقائياً عبر <code className="bg-muted px-1.5 py-0.5 rounded text-sm">&lt;Image /&gt;</code>، وCode Splitting تلقائي لكل صفحة. لا تنسَ استخدام <code className="bg-muted px-1.5 py-0.5 rounded text-sm">loading="lazy"</code> للصور التي ليست في الـ viewport الأول.
+            Next.js يوفر لك Image Optimization تلقائياً عبر <code className="bg-muted px-1.5 py-0.5 rounded text-sm">&lt;Image /&gt;</code>، وCode Splitting تلقائي لكل صفحة. لا تنسَ استخدام <code className="bg-muted px-1.5 py-0.5 rounded text-sm">loading=&quot;lazy&quot;</code> للصور التي ليست في الـ viewport الأول.
           </p>
 
           <div className="bg-primary/5 border border-primary/20 rounded-2xl p-6 mt-8">
