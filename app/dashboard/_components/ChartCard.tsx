@@ -45,7 +45,7 @@ export function ChartCard({
   height = 300,
   delay = 0,
 }: ChartCardProps) {
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ export function ChartCard({
 
   if (!mounted) return <div style={{ height }} />;
 
-  const isDark = theme === "dark";
+  const isDark = resolvedTheme === "dark";
 
   return (
     <motion.div
@@ -84,7 +84,7 @@ export function ChartCard({
                 tickLine={false} 
                 tick={{ fill: isDark ? '#64748b' : '#94a3b8', fontSize: 11, fontWeight: 500 }}
               />
-              <Tooltip content={<CustomTooltip isDark={isDark} />} cursor={{ fill: isDark ? '#1e293b' : '#f8fafc', radius: 8 }} />
+              <Tooltip content={<CustomTooltip isDark={isDark} />} cursor={{ fill: isDark ? "rgba(255, 255, 255, 0.03)" : "rgba(0, 0, 0, 0.02)", radius: 8 }} />
               <Bar 
                 dataKey="value" 
                 fill={isDark ? "#60a5fa" : "#2563eb"} 

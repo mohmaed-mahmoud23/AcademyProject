@@ -88,7 +88,6 @@ export function ModernStudentDashboard({ data }: ModernStudentDashboardProps) {
               roles={userData?.roles || [t("student")]}
               avatarUrl={userData?.profileImageUrl ?? undefined}
               phoneNumber={userData?.phoneNumber ?? undefined}
-              userId={userData?.userId ?? undefined}
             />
           )}
         </div>
