@@ -6,7 +6,6 @@ import ProvidersComponetns from "./providers/Provider";
 import { Toaster } from "sonner";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -24,10 +23,41 @@ const cairo = Cairo({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://habib-academy.tech"),
+
   title: "Habib Academy",
   description: "Learn Programming the Right Way — أكاديمية حبيب",
-};
 
+  openGraph: {
+    title: "Habib Academy",
+    description: "Learn Programming the Right Way — أكاديمية حبيب",
+    url: "https://habib-academy.tech",
+    siteName: "Habib Academy",
+    locale: "ar_EG",
+    type: "website",
+    images: [
+      {
+        url: "/images/logo.svg",
+        width: 1200,
+        height: 630,
+        alt: "Habib Academy Logo",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Habib Academy",
+    description: "Learn Programming the Right Way — أكاديمية حبيب",
+    images: ["/images/logo.svg"],
+  },
+
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
+};
 export default async function RootLayout({
   children,
 }: Readonly<{
