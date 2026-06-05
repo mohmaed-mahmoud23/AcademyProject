@@ -45,7 +45,7 @@ export function ChartCard({
   height = 300,
   delay = 0,
 }: ChartCardProps) {
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ export function ChartCard({
 
   if (!mounted) return <div style={{ height }} />;
 
-  const isDark = theme === "dark";
+  const isDark = resolvedTheme === "dark";
 
   return (
     <motion.div
@@ -66,40 +66,40 @@ export function ChartCard({
       <div className="flex items-center justify-between mb-8">
         <h3 className="text-lg font-bold text-foreground">{title}</h3>
       </div>
-      
+
       <div className="flex-1 w-full" style={{ minHeight: height }}>
         <ResponsiveContainer width="100%" height="100%">
           {type === "bar" ? (
-            <BarChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+            <BarChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 25 }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={isDark ? "#1e293b" : "#f1f5f9"} />
-              <XAxis 
-                dataKey="name" 
-                axisLine={false} 
-                tickLine={false} 
+              <XAxis
+                dataKey="name"
+                axisLine={false}
+                tickLine={false}
                 tick={{ fill: isDark ? '#64748b' : '#94a3b8', fontSize: 11, fontWeight: 500 }}
-                dy={15}
+                dy={10}
               />
-              <YAxis 
-                axisLine={false} 
-                tickLine={false} 
+              <YAxis
+                axisLine={false}
+                tickLine={false}
                 tick={{ fill: isDark ? '#64748b' : '#94a3b8', fontSize: 11, fontWeight: 500 }}
               />
-              <Tooltip content={<CustomTooltip isDark={isDark} />} cursor={{ fill: isDark ? '#1e293b' : '#f8fafc', radius: 8 }} />
-              <Bar 
-                dataKey="value" 
-                fill={isDark ? "#60a5fa" : "#2563eb"} 
-                radius={[8, 8, 0, 0]} 
+              <Tooltip content={<CustomTooltip isDark={isDark} />} cursor={false} />
+              <Bar
+                dataKey="value"
+                fill={isDark ? "#60a5fa" : "#2563eb"}
+                radius={[8, 8, 0, 0]}
                 barSize={32}
                 animationDuration={1500}
               />
             </BarChart>
           ) : (
-            <RadialBarChart 
-              cx="50%" 
-              cy="50%" 
-              innerRadius="65%" 
-              outerRadius="100%" 
-              barSize={12} 
+            <RadialBarChart
+              cx="50%"
+              cy="50%"
+              innerRadius="65%"
+              outerRadius="100%"
+              barSize={12}
               data={data}
               startAngle={180}
               endAngle={-180}

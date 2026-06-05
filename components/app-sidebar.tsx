@@ -1,6 +1,8 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
+import Logo from "@/public/habib-logo.jpg";
 import {
   IconDashboard,
   IconListDetails,
@@ -84,6 +86,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
+<<<<<<< HEAD
             <div className="flex items-center justify-between px-1 py-1">
               <SidebarMenuButton
                 asChild
@@ -109,6 +112,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <IconX size={16} />
               </button>
             </div>
+=======
+            <SidebarMenuButton
+              asChild
+              className="data-[slot=sidebar-menu-button]:!p-1.5"
+            >
+              <a href="#">
+                <Image src={Logo} alt="Habib Academy Logo" width={20} height={20} className="rounded-full object-cover" />
+                <span className="text-base font-semibold">{t("brand")}</span>
+              </a>
+            </SidebarMenuButton>
+>>>>>>> 3267ae3a02e88105209f0a91046ea7733cd09aca
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
