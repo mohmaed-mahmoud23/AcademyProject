@@ -70,14 +70,14 @@ export function ChartCard({
       <div className="flex-1 w-full" style={{ minHeight: height }}>
         <ResponsiveContainer width="100%" height="100%">
           {type === "bar" ? (
-            <BarChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+            <BarChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 25 }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={isDark ? "#1e293b" : "#f1f5f9"} />
               <XAxis
                 dataKey="name"
                 axisLine={false}
                 tickLine={false}
                 tick={{ fill: isDark ? '#64748b' : '#94a3b8', fontSize: 11, fontWeight: 500 }}
-                dy={15}
+                dy={10}
               />
               <YAxis
                 axisLine={false}
