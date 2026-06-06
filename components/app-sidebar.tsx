@@ -1,8 +1,7 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
-import Logo from "@/public/habib-logo.jpg";
+
 import {
   IconDashboard,
   IconListDetails,
