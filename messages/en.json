@@ -1423,6 +1423,62 @@
     "deleteError": "Failed to delete admin",
     "noAdmins": "No admins found."
   },
+  "StudentHelp": {
+    "title": "Help Center",
+    "subtitle": "Find answers and get in touch with our support team",
+    "back": "Back",
+    "faq": {
+      "sectionTitle": "Frequently Asked Questions",
+      "sectionSubtitle": "Quick answers to the most common questions",
+      "q1": "How do I access lectures?",
+      "a1": "Go to \"My Tracks\" from the sidebar, choose your batch, then select the track you want. You'll find all lectures listed there — click any lecture to view its content and materials.",
+      "q2": "How do I submit an assignment?",
+      "a2": "Open the lecture that contains the assignment, scroll to the Assignments section, click \"Submit\", upload your file, and press the submit button. You'll receive a confirmation once it's submitted successfully.",
+      "q3": "How do I track my progress in a track?",
+      "a3": "Your progress is visible on the dashboard main page under the charts section. You can also see your grades and completed assignments there.",
+      "q4": "What should I do if I forgot my password?",
+      "a4": "On the login page, click \"Forgot Password\", enter your email address, and follow the instructions sent to your inbox to reset your password.",
+      "q5": "How do I contact my instructor?",
+      "a5": "You can reach your instructor through the support team below, or by sending a message using the contact form on this page. Our team will forward your message to the right person."
+    },
+    "team": {
+      "sectionTitle": "Support Team",
+      "sectionSubtitle": "We're here to help — reach out anytime",
+      "contact": "Contact",
+      "members": [
+        {
+          "name": "Ahmad Habib",
+          "role": "CEO & Founder",
+          "whatsapp": "https://wa.me/963000000000",
+          "email": "ahmad@habib-academy.tech"
+        },
+        {
+          "name": "Sara Al-Nasser",
+          "role": "Student Support Specialist",
+          "whatsapp": "https://wa.me/963000000001",
+          "email": "sara@habib-academy.tech"
+        },
+        {
+          "name": "Omar Khalil",
+          "role": "Technical Support",
+          "whatsapp": "https://wa.me/963000000002",
+          "email": "omar@habib-academy.tech"
+        }
+      ]
+    },
+    "contact": {
+      "sectionTitle": "Contact Support",
+      "sectionSubtitle": "Send us a message and we'll get back to you shortly",
+      "subject": "Subject",
+      "subjectPlaceholder": "e.g. Problem with assignment submission",
+      "message": "Message",
+      "messagePlaceholder": "Describe your issue or question in detail...",
+      "send": "Send Message",
+      "sending": "Sending...",
+      "success": "Message sent successfully! We'll get back to you soon.",
+      "required": "Please fill in all fields"
+    }
+  },
   "StudentSettings": {
     "title": "Settings",
     "subtitle": "Manage your account preferences and security",
