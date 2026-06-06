@@ -28,12 +28,12 @@ export const adminscemacreta = z.object({
 
 
     firstName : z.string()
-    .min(8, { message: "firstName must be at least 5 characters" })
-    .max(30, { message: "firstName cannot exceed 30 characters" }),
+    .min(3, { message: "First name must be at least 3 characters" })
+    .max(30, { message: "First name cannot exceed 30 characters" }),
 
     lastName : z.string()
-    .min(8, { message: "lastName must be at least 5 characters" })
-    .max(30, { message: "lastName cannot exceed 30 characters" }),
+    .min(3, { message: "Last name must be at least 3 characters" })
+    .max(30, { message: "Last name cannot exceed 30 characters" }),
 
 });
 
