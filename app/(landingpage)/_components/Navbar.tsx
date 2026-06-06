@@ -62,8 +62,8 @@ export default function Navbar() {
           <div className="relative">
             <Image src={LoGO} alt="Logo" width={55} height={55} className="rounded-2xl transition-transform duration-300 hover:scale-110" />
           </div>
-          <span className="hidden sm:block font-black text-xl tracking-tighter ml-3 bg-clip-text text-transparent bg-linear-to-r from-foreground to-foreground/70">
-            {t("brand")}
+          <span className="hidden sm:block font-black text-xl tracking-tighter ml-3">
+            {t("brandFirst")} <span className="text-primary">{t("brandSecond")}</span>
           </span>
         </Link>
 

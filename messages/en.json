@@ -1,6 +1,8 @@
 {
   "Navbar": {
     "brand": "Habib Academy",
+    "brandFirst": "Habib",
+    "brandSecond": "Academy",
     "aboutMe": "About Me",
     "login": "Login",
     "getStarted": "Get Started",
@@ -184,8 +186,8 @@
     "subtitle": "When you finish the course you don't just get a certificate — you build real projects like these and add them to your GitHub & LinkedIn profile. This is just a small sample of what you'll be able to create.",
     "badge": "Featured Project",
     "projectTitle": "ORDER MANAGEMENT SYSTEM",
-    "projectDesc": "A full-scale order management system built with React.js and Firebase. Features include a real-time analytics dashboard, complete order lifecycle management (create, approve, reject, ship), advanced filtering and search, Excel and PDF export, and support for 1000+ orders. Clean professional UI focused on usability and performance.",
-    "tags": ["React.js", "JavaScript", "Tailwind CSS", "MongoDB"]
+    "projectDesc": "A full-scale order management system built with Next.js and MongoDB. Features include a real-time analytics dashboard, complete order lifecycle management (create, approve, reject, ship), advanced filtering and search, Excel and PDF export, and support for 1000+ orders. Clean professional UI focused on usability and performance.",
+    "tags": ["Next.js", "JavaScript", "Tailwind CSS", "MongoDB"]
   },
   "FloatingCards": {
     "title": "Student Feedback",
