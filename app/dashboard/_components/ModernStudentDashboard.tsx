@@ -106,7 +106,7 @@ export function ModernStudentDashboard({ data }: ModernStudentDashboardProps) {
               <span className="text-sm font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest">{t("studentPortal")}</span>
             </div>
             <h1 className="text-4xl md:text-5xl font-black text-foreground leading-tight">
-              {t("title")}, <br />
+              {t("title")} <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">
                 {t("levelUp")}
               </span>

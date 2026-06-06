@@ -274,6 +274,8 @@
     "quickCreate": "إنشاء سريع",
     "documents": "المستندات",
     "brand": "أكاديمية حبيب",
+    "brandFirst": "أكاديمية",
+    "brandSecond": "حبيب",
     "logout": "تسجيل الخروج",
     "articles": "مقالات تعليمية",
     "createAdmin": "إدارة المشرفين"
@@ -455,7 +457,9 @@
     "settings": "الإعدادات",
     "getHelp": "المساعدة",
     "search": "بحث",
-    "acmeInc": "أكاديمية حبيب"
+    "acmeInc": "أكاديمية حبيب",
+    "brandFirst": "أكاديمية",
+    "brandSecond": "حبيب"
   },
   "BatchesStudent": {
     "loading": "جارٍ التحميل...",
@@ -1444,5 +1448,36 @@
     "deleteSuccess": "تم حذف المشرف بنجاح",
     "deleteError": "فشل حذف المشرف",
     "noAdmins": "لا يوجد مشرفين حالياً."
+  },
+  "StudentSettings": {
+    "title": "الإعدادات",
+    "subtitle": "أدر إعدادات حسابك وتفضيلاتك الشخصية",
+    "password": {
+      "sectionTitle": "تغيير كلمة المرور",
+      "sectionSubtitle": "حدّث كلمة مرورك للحفاظ على أمان حسابك",
+      "current": "كلمة المرور الحالية",
+      "new": "كلمة المرور الجديدة",
+      "confirm": "تأكيد كلمة المرور الجديدة",
+      "placeholder": "••••••••",
+      "save": "حفظ كلمة المرور",
+      "saving": "جارٍ الحفظ...",
+      "success": "تم تغيير كلمة المرور بنجاح",
+      "mismatch": "كلمتا المرور غير متطابقتين",
+      "required": "جميع الحقول مطلوبة"
+    },
+    "language": {
+      "sectionTitle": "اللغة",
+      "sectionSubtitle": "اختر لغة العرض المفضلة لديك",
+      "arabic": "العربية",
+      "english": "الإنجليزية"
+    },
+    "notifications": {
+      "sectionTitle": "الإشعارات",
+      "sectionSubtitle": "تحكم في الإشعارات التي تصلك",
+      "newLectures": "المحاضرات الجديدة",
+      "newLecturesDesc": "تلقّ إشعاراً عند إضافة محاضرة جديدة لمسارك",
+      "assignments": "الواجبات",
+      "assignmentsDesc": "تلقّ إشعاراً بالواجبات الجديدة والمواعيد القادمة"
+    }
   }
 }

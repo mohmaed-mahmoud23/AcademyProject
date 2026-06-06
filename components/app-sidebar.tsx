@@ -98,7 +98,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     height={28}
                     className="rounded-md object-cover"
                   />
-                  <span className="text-base font-semibold">{t("brand")}</span>
+                  <span className="text-base font-semibold">{t("brandFirst")} <span className="text-primary">{t("brandSecond")}</span></span>
                 </a>
               </SidebarMenuButton>
 

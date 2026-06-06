@@ -248,6 +248,8 @@
     "quickCreate": "Quick Create",
     "documents": "Documents",
     "brand": "Habib Academy",
+    "brandFirst": "Habib",
+    "brandSecond": "Academy",
     "logout": "Log out",
     "articles": "ARTICLES",
     "createAdmin": "Admins"
@@ -430,7 +432,9 @@
     "settings": "Settings",
     "getHelp": "Get Help",
     "search": "Search",
-    "acmeInc": "Acme Inc."
+    "acmeInc": "Acme Inc.",
+    "brandFirst": "Habib",
+    "brandSecond": "Academy"
   },
   "BatchesStudent": {
     "loading": "Loading...",
@@ -1418,5 +1422,36 @@
     "deleteSuccess": "Admin deleted successfully",
     "deleteError": "Failed to delete admin",
     "noAdmins": "No admins found."
+  },
+  "StudentSettings": {
+    "title": "Settings",
+    "subtitle": "Manage your account preferences and security",
+    "password": {
+      "sectionTitle": "Change Password",
+      "sectionSubtitle": "Update your password to keep your account secure",
+      "current": "Current Password",
+      "new": "New Password",
+      "confirm": "Confirm New Password",
+      "placeholder": "••••••••",
+      "save": "Save Password",
+      "saving": "Saving...",
+      "success": "Password changed successfully",
+      "mismatch": "Passwords do not match",
+      "required": "All fields are required"
+    },
+    "language": {
+      "sectionTitle": "Language",
+      "sectionSubtitle": "Choose your preferred display language",
+      "arabic": "Arabic",
+      "english": "English"
+    },
+    "notifications": {
+      "sectionTitle": "Notifications",
+      "sectionSubtitle": "Control the notifications you receive",
+      "newLectures": "New Lectures",
+      "newLecturesDesc": "Get notified when a new lecture is added to your track",
+      "assignments": "Assignments",
+      "assignmentsDesc": "Get notified about new assignments and upcoming deadlines"
+    }
   }
 }

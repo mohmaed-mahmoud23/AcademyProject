@@ -105,7 +105,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     navSecondary: [
       {
         title: t("settings"),
-        url: "#",
+        url: "/dashboard/settings",
         icon: IconSettings,
       },
       {
@@ -132,7 +132,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             >
               <a href="#">
                 <Image src={Logo} alt="Habib Academy Logo" width={20} height={20} className="rounded-full object-cover" />
-                <span className="text-base font-semibold">{t("acmeInc")}</span>
+                <span className="text-base font-semibold">{t("brandFirst")} <span className="text-primary">{t("brandSecond")}</span></span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>

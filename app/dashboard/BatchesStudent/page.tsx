@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetBatchQuery } from "@/app/redux/slices/ApiSlice";
+import { useGetMyBatchesQuery } from "@/app/redux/slices/ApiSlice";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { ReactTyped } from "react-typed";
@@ -22,7 +22,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function BatchesStudent() {
-  const { data, isLoading } = useGetBatchQuery();
+  const { data, isLoading } = useGetMyBatchesQuery();
   const router = useRouter();
   const t = useTranslations("BatchesStudent");
   const locale = useLocale();

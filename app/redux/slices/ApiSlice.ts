@@ -501,6 +501,19 @@ createArticle: builder.mutation<
       query: (assignmentId) => `assignments/${assignmentId}/stats`,
       providesTags: ["Assignment"],
     }),
+
+    getMyBatches: builder.query<ApiResponse<BatchesData>, void>({
+      query: () => "batches?sort=desc",
+      providesTags: ["Batch"],
+    }),
+
+    changePassword: builder.mutation<ApiResponse<unknown>, { currentPassword: string; newPassword: string }>({
+      query: (body) => ({
+        url: "auth/change-password",
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
@@ -549,5 +562,7 @@ export const {
   useDeleteAdminMutation,
   useDeleteTrackMutation,
   useUpdateBatchMutation,
+  useGetMyBatchesQuery,
+  useChangePasswordMutation,
   useGetarticlesQuery,
 } = ApiSlice;
