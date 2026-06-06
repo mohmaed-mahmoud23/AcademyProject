@@ -84,7 +84,7 @@ export function AnalyticsDashboard() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.8 }}
-            className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-black text-foreground tracking-tighter leading-[0.9]"
+            className="text-2xl sm:text-3xl md:text-4xl xl:text-5xl font-black text-foreground tracking-normal leading-snug"
           >
             {t("headerTitle").split(' ').slice(0, 2).join(' ')} <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-600 dark:from-blue-400 dark:via-indigo-400 dark:to-purple-500 hover:from-purple-500 hover:to-blue-500 cursor-default transition-all duration-1000">

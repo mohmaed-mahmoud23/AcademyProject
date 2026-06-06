@@ -38,8 +38,8 @@ export default async function AuthLayout({ children }: { children: ReactNode }) 
 
         {/* Logo */}
         <div className="flex flex-col items-center gap-3 mb-8">
-          <div className="p-1 rounded-2xl bg-primary/10 border border-primary/20">
-            <Image src={Logo} alt="logo" width={56} height={56} className="rounded-xl" />
+          <div className="p-2 rounded-2xl bg-primary/10 border border-primary/20">
+            <Image src={Logo} alt="logo" width={80} height={80} className="rounded-xl" />
           </div>
           <div className="text-center">
             <p className="text-xl font-bold">
