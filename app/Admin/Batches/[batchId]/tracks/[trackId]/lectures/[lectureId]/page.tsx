@@ -7,6 +7,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useUpdateAssignmentMutation } from "@/app/redux/slices/ApiSlice";
 import {
@@ -53,6 +54,8 @@ import { Badge } from "@/components/ui/badge";
 export default function LectureIdPage() {
   const t = useTranslations("AdminLectureDetails");
   const [postAssignment] = usePostAssignmentMutation();
+  const [assignmentDialogOpen, setAssignmentDialogOpen] = useState(false);
+  const [editDialogId, setEditDialogId] = useState<string | null>(null);
   const [updateAssignment, { isLoading: isUpdating }] = useUpdateAssignmentMutation();
   const router = useRouter();
 
@@ -99,6 +102,7 @@ const handleUpdateAssignment = async (
     }).unwrap();
 
     toast.success(res.message || t("assignmentUpdated"));
+    setEditDialogId(null);
   } catch (err: any) {
     toast.error(err?.data?.message || t("updateFailed"));
   }
@@ -119,6 +123,7 @@ const handleUpdateAssignment = async (
 
       toast.success(resalt.message || t("assignmentCreated"));
       LectcherassomentForm.reset();
+      setAssignmentDialogOpen(false);
     } catch (err: any) {
       const errorMessage = err?.data?.message || err?.message || t("assignmentCreateError");
       toast.error(errorMessage);
@@ -170,7 +175,7 @@ console.log( "asssimaent",assignmentlecture?.data);
           </div>
         </div>
 
-        <Dialog>
+        <Dialog open={assignmentDialogOpen} onOpenChange={setAssignmentDialogOpen}>
           <DialogTrigger asChild>
             <Button className="rounded-xl font-bold h-12 px-6 shadow-lg bg-primary hover:bg-primary/90">
               <Plus className="w-5 h-5 me-2" /> {t("createAssignmentBtn")}
@@ -433,7 +438,7 @@ console.log( "asssimaent",assignmentlecture?.data);
                   {/* </div> */} 
                 </div>
 
-                <Dialog>
+                <Dialog open={editDialogId === assignment.id} onOpenChange={(open) => setEditDialogId(open ? assignment.id : null)}>
                   <DialogTrigger asChild>
                     <Button
                       variant="outline"

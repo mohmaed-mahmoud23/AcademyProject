@@ -76,6 +76,8 @@ export default function BatchDetails() {
 
   const [deleteStudent] = useDeleteStudentMutation();
   const [createTrack] = usePostbatchTracksMutation();
+  const [studentDialogOpen, setStudentDialogOpen] = useState(false);
+  const [trackDialogOpen, setTrackDialogOpen] = useState(false);
 
   const { data: batchRes, isLoading: batchLoading } = useGetBatchdetailsQuery(batchId);
   const [Createstudent] = useADminCreatestudentMutation();
@@ -92,7 +94,7 @@ export default function BatchDetails() {
 
   const onStudentSubmit = async (data: CreateStudentFormValues) => {
     try {
-      const result = await Createstudent({
+      await Createstudent({
         email: data.email,
         firstName: data.firstName,
         lastName: data.lastName,
@@ -101,6 +103,7 @@ export default function BatchDetails() {
       }).unwrap();
       toast.success(t("studentCreated"));
       studentForm.reset();
+      setStudentDialogOpen(false);
     } catch (err: any) {
       toast.error(err.data?.message || t("error"));
     }
@@ -116,6 +119,7 @@ export default function BatchDetails() {
       const result = await createTrack({ batchId, name: data.name }).unwrap();
       toast.success(result.message || t("trackCreated"));
       trackForm.reset();
+      setTrackDialogOpen(false);
     } catch (err: any) {
       toast.error(err.data?.message || t("error"));
     }
@@ -271,7 +275,7 @@ export default function BatchDetails() {
 
             <div className="flex items-center gap-3 w-full sm:w-auto">
 
-              <Dialog>
+              <Dialog open={studentDialogOpen} onOpenChange={setStudentDialogOpen}>
                 <DialogTrigger asChild>
                   <Button className="rounded-2xl shadow-lg font-bold px-6 h-11 flex items-center gap-2">
                     <Users className="w-4 h-4" /> {t("addStudent")}
@@ -478,7 +482,7 @@ export default function BatchDetails() {
                 </CardTitle>
                 <p className="text-[10px] font-black text-muted-foreground/50 uppercase tracking-[0.2em]">{tracks.length} Curriculums</p>
               </div>
-              <Dialog>
+              <Dialog open={trackDialogOpen} onOpenChange={setTrackDialogOpen}>
                 <DialogTrigger asChild>
                   <Button size="sm" variant="default" className="rounded-2xl shadow-lg font-black h-11 px-6 bg-primary hover:bg-primary/90 transition-all border-0 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
                     <Plus className="w-4 h-4 me-2" /> {t("createTrack")}
