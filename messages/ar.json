@@ -1449,6 +1449,21 @@
     "deleteError": "فشل حذف المشرف",
     "noAdmins": "لا يوجد مشرفين حالياً."
   },
+  "StudentSearch": {
+    "title": "البحث",
+    "subtitle": "ابحث في محاضراتك ومساراتك وواجباتك",
+    "placeholder": "ابحث عن أي شيء...",
+    "back": "رجوع",
+    "searchPrompt": "ابدأ بالكتابة للبحث",
+    "noResults": "لا توجد نتائج",
+    "noResultsHint": "جرّب كلمة مختلفة",
+    "lectures": "المحاضرات",
+    "tracks": "المسارات",
+    "assignments": "الواجبات",
+    "trackLabel": "المسار",
+    "batchLabel": "الدفعة",
+    "dueLabel": "تاريخ التسليم"
+  },
   "StudentHelp": {
     "title": "مركز المساعدة",
     "subtitle": "اعثر على إجابات وتواصل مع فريق الدعم",

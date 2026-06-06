@@ -1423,6 +1423,21 @@
     "deleteError": "Failed to delete admin",
     "noAdmins": "No admins found."
   },
+  "StudentSearch": {
+    "title": "Search",
+    "subtitle": "Search across your lectures, tracks and assignments",
+    "placeholder": "Search for anything...",
+    "back": "Back",
+    "searchPrompt": "Start typing to search",
+    "noResults": "No results found",
+    "noResultsHint": "Try a different keyword",
+    "lectures": "Lectures",
+    "tracks": "Tracks",
+    "assignments": "Assignments",
+    "trackLabel": "Track",
+    "batchLabel": "Batch",
+    "dueLabel": "Due date"
+  },
   "StudentHelp": {
     "title": "Help Center",
     "subtitle": "Find answers and get in touch with our support team",

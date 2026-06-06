@@ -107,7 +107,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       },
       {
         title: t("search"),
-        url: "#",
+        url: "/dashboard/search",
         icon: IconSearch,
       },
     ],
