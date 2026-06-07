@@ -273,7 +273,13 @@ createArticle: builder.mutation<
       }),
       invalidatesTags: ["Lecture", "Assignment", "Track", "Dashboard"],
     }),
-
+  deleteUser: builder.mutation<void,void>({
+      query: (lectureId) => ({
+        url: `lectures/${lectureId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Lecture", "Assignment", "Track", "Dashboard"],
+    }),
     // ================= DELETE TRACK =================
 
     deleteTrack: builder.mutation<ApiResponse<string>, string>({
